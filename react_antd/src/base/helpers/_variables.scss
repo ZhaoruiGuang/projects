@@ -1,0 +1,122 @@
+@charset "utf-8";
+
+////
+/// 变量配置
+/// 用于颜色，文本，尺寸等内容的配置。
+///
+/// @group API
+/// @author co-mall
+////
+
+
+//  文字
+// -----------------------------------------------------------------------------
+
+/// 默认字体集
+$font-family-base:              Microsoft Yahei,Verdana,Arial,SimSun !default;
+
+/// 强调文字字体集
+$font-family-loud:              'Microsoft Yahei'                    !default;
+
+/// 文字大小
+$font-size-small:               10px                                 !default;
+$font-size-base:                12px                                 !default;
+$font-size-14:                  14px                                 !default;
+$font-size-16:                  16px                                 !default;
+$font-size-18:                  18px                                 !default;
+$font-size-20:                  20px                                 !default;
+$font-size-large:               24px                                 !default;
+
+/// 文字行高
+$line-height-base:              1.5                                  !default;
+$line-height-small:             1.25                                 !default;
+$line-height-large:             1.6                                  !default;
+$line-height-double:            2                                    !default;           
+
+
+// 颜色表
+// 颜色表用于定义一组颜色值，在项目中的用到的所有颜色都应该引用自该颜色表，而非自己直接指定色值。
+// good:
+//   .box { color: $red; }
+//
+// bad:
+//   .box { color: #f00; }
+//
+// 另外，这些变量的名称是缺乏语义的，因此建议基于颜色表配置出一组语义更具体的变量进行使用，比如：
+
+// 黑色
+$black-default:                 #000                                 !default;
+// 浅黑色
+$black-light:                   #444                                 !default;
+$black-lighter:                 #666                                 !default;
+// 白色
+$white-default:                 #fff                                 !default;
+// 灰色默认
+$grey-default:                  #ccc                                 !default;
+// 浅灰色
+$grey-light:                    #f3f3f3                              !default;
+// 深灰色
+$grey-deep:                     #ababab                              !default;
+
+// 蓝色
+$blue-default:                  #108ee9                              !default;
+// 浅蓝色
+$blue-light:                    #49a9ee                              !default;
+// 深蓝色
+$blue-deep:                     #0e77ca                              !default;
+
+
+/// 页面尺寸
+// 小尺寸
+$narrow-page-width:             1120px                               !default;
+// 大尺寸
+$wide-page-width:               1200px                               !default;
+    
+/// 默认尺寸规格的名称
+$default-element-box-name:      m                                    !default;
+
+/// 尺寸规格集合，key 为尺寸规格的名称，value 为该规格的数据。
+///
+/// 每一个尺寸规格定义了一个 CSS 盒模型的相关数据，其中包括宽高，垂直/水平内边距，边框宽度，文字大小和行高，
+/// 以及一个额外提供的圆角大小：
+///
+/// - width: 宽度
+/// - height: 高度
+/// - padding-vertical: 垂直内边距
+/// - padding-horizontal: 水平内边距
+/// - border-width: 边框宽度
+/// - border-radius: 圆角大小
+/// - font-size: 文字大小
+/// - line-height: 行高
+///
+/// 以上所有数据都是可选的，不过一般考虑到通用性，不会指定宽高度，而其它的一般都会被指定。
+///
+/// 配置项中默认提供 5 个尺寸规则，其名称参照服装的尺码命名方式进行定义：
+/// - m: 普通尺寸
+/// - l: 较大尺寸
+/// - xl: 超大尺寸
+/// - s: 较小尺寸
+/// - xs: 超小尺寸
+$element-box-maps: (
+    m: (
+        padding-vertical: 6px,
+        padding-horizontal: 12px,
+        border-width: 1px,
+        font-size: $font-size-base,
+        line-height: $line-height-base
+    ),
+    l: (
+        padding-vertical: 10px,
+        padding-horizontal: 16px,
+        border-width: 1px,
+        font-size: $font-size-large,
+        line-height: $line-height-large
+    ),
+    s: (
+        padding-vertical: 4px,
+        padding-horizontal: 9px,
+        border-width: 1px,
+        font-size: $font-size-small,
+        line-height: $line-height-small
+    )
+);
