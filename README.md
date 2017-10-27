@@ -17,7 +17,11 @@
 
 
 ### 使用方式及效果截图
-![截图](https://raw.githubusercontent.com/yezihaohao/yezihaohao.github.io/master/imgs/rd1.gif)
+![截图](https://github.com/ZhaoruiGuang/projects/blob/all_images/vue_share/share1.jpg)
+![截图](https://github.com/ZhaoruiGuang/projects/blob/all_images/vue_share/share2.jpg)
+![截图](https://github.com/ZhaoruiGuang/projects/blob/all_images/vue_share/share3.jpg)
+![截图](https://github.com/ZhaoruiGuang/projects/blob/all_images/vue_share/share4.jpg)
+![截图](https://github.com/ZhaoruiGuang/projects/blob/all_images/vue_share/share5.jpg)
 
 
 
