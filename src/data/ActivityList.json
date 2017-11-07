@@ -1,0 +1,22 @@
+{
+  "body": [
+    {
+      "uri": "https://wwwt1.1001.com.cn/upload/tmp/logo_og.png",
+      "id": 1,
+      "name": "这个是 rndemo",
+      "focus": true
+    },
+    {
+      "uri": "https://web.1001.com.cn/upload/activityPicture/2017-06-13/1497323663382.jpg",
+      "id": 2,
+      "name": "百万好友送豪礼",
+      "focus": false
+    },
+    {
+      "uri": "https://web.1001.com.cn/upload/activityPicture/2017-06-20/1497924128751.jpg",
+      "id": 3,
+      "name": "清凉一夏",
+      "focus": false
+    }
+  ]
+}
