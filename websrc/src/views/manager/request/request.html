@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>welcome</title>
+	<script type="text/javascript" src="/assets/manager/common.js"></script>
+</head>
+<body>
+	<div id="app">
+		<h1 style="color:green;">本页面有两个跨域测试请求</h1>
+		<input type="button" v-on:click="localReq" value="getJSON 请求">
+		<input type="button" v-on:click="serverReq" value="静态服务器转发请求">
+	</div>
+
+	<script type="text/javascript" src="/assets/manager/request.js"></script>
+</body>
+</html>
