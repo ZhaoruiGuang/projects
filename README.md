@@ -1,17 +1,5 @@
-# all projects
+# vue2_datePicker 
 
-这里是我所有的学习项目，欢迎小伙伴们加入！
+这是一个日期选择组件。
 
-
-### 项目说明
-- react_antd
-	- 后台管理系统
-    - gulp@3.9.1 
-    - webpack@2.7.0
-    - react@15.0.0
-    - ant Design 
-- vue_share
-    - 分享组件
-    - vue（1.x 或 2.x 均可）
-    - 新浪微博、qq空间、微信朋友圈
-
+### 要求vue版本 2.0+
