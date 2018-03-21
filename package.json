@@ -1,0 +1,60 @@
+{
+  "name": "new-p2p-web",
+  "version": "1.0.0",
+  "description": "this is new p2p project ",
+  "main": "gulpfile.js",
+  "scripts": {
+    "start": "npm install -g gulp cnpm && cnpm install && gulp dev",
+    "test": "",
+    "build": "npm install -g gulp && npm install && gulp release"
+  },
+  "keywords": [
+    "p2p"
+  ],
+  "author": "huazhen-web",
+  "license": "ISC",
+  "host": "localhost",
+  "port": "8888",
+  "devDependencies": {
+    "autoprefixer-loader": "^3.2.0",
+    "babel": "^6.23.0",
+    "babel-core": "^6.26.0",
+    "babel-loader": "^7.1.2",
+    "babel-plugin-transform-runtime": "^6.23.0",
+    "babel-preset-es2015": "^6.24.1",
+    "babel-preset-stage-2": "^6.24.1",
+    "cheerio": "^1.0.0-rc.2",
+    "css-loader": "^0.28.7",
+    "dateformat": "^3.0.2",
+    "de-indent": "^1.0.2",
+    "del": "^3.0.0",
+    "extract-text-webpack-plugin": "^3.0.2",
+    "file-loader": "^1.1.11",
+    "fs": "^0.0.1-security",
+    "gulp": "^3.9.1",
+    "gulp-plumber": "^1.1.0",
+    "gulp-rev-replace": "^0.4.3",
+    "gulp-util": "^3.0.8",
+    "html-loader": "^0.5.1",
+    "merge": "^1.2.0",
+    "node-sass": "^4.7.2",
+    "orchestrator": "^0.3.8",
+    "path": "^0.12.7",
+    "run-sequence": "^2.2.0",
+    "sass-loader": "^6.0.6",
+    "style-loader": "^0.19.0",
+    "through2": "^2.0.3",
+    "transform-runtime": "^0.0.0",
+    "url-loader": "^0.6.2",
+    "vinyl": "^2.1.0",
+    "vue-loader": "^13.5.0",
+    "vue-router": "^3.0.1",
+    "vue-template-compiler": "^2.5.10",
+    "webpack": "^3.10.0",
+    "webpack-dev-server": "^2.9.7",
+    "yargs": "^10.0.3"
+  },
+  "dependencies": {
+    "babel-runtime": "^6.26.0"
+  }
+}

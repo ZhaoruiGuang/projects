@@ -1,0 +1,36 @@
+@charset "utf-8";
+
+//     变量配置
+//     用于颜色，文本 等内容的配置。
+
+
+//  文字
+// -----------------------------------------------------------------------------
+
+// 默认字体集
+$font-family-base:              Microsoft Yahei,Verdana,Arial,SimSun !default;
+
+// 文字大小
+$font-small:                    12px                                 !default;
+$font-base:                     14px                                 !default;
+$font-mid:                      16px                                 !default;
+$font-big:                      18px                                 !default;
+$font-large:                    22px                                 !default;
+
+
+// 深黑色
+$black:                    		#29374b                              !default;
+// 白色
+$white:                    		#fff                             	 !default;
+
+// 绿色
+$green-base:                    #246118                              !default;
+// 黄绿色
+$green-yellow:                  #caeaa2                              !default;
+// 墨绿色
+$green-dark:                    #0c4201                              !default;
+// 浅绿色
+$green-light:                   #e3f6cb                              !default;
+						 
+// 页面背景:灰白色
+$page-bg:                       #f7f7f7                              !default;
