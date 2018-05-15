@@ -29,7 +29,7 @@ function errorHandler(src,e){
 	}
 };
 
-var devCompiler = webpack(devConfig);
+let devCompiler = webpack(devConfig);
 // 此时 devCompiler 是一个 webpack Compiler 实例，提供两个方法：
 // (1) .run(callback(err,stats))
 // (2) .watch(watchOptions, handler) 检测到文件变更，就会重新执行编译
