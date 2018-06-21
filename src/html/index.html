@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+    <head>
+        <meta charset="utf-8">
+        <title>百度 AI 测试</title>
+
+        <style>
+            .win{
+                display: block;
+                width: 800px;
+                margin:100px auto;
+            }
+            .imgBox{
+                display: inline-block;
+                width: 350px;
+                text-align: center;
+
+            }
+            .imgOneBox{
+                float: left;
+            }
+            .imgTwoBox{
+                float:right;
+            }
+            .img{
+                display: block;
+                width: 200px;
+                margin:0 auto;
+                border:1px solid green;
+            }
+            .img img{
+                display: block;
+                width: 200px;
+            }
+            .fileInput{
+                display: none;
+            }
+            label{
+                margin-top: 20px;
+                cursor:pointer;
+                display: inline-block;
+                width: 80px;
+                background-color: #1088f1;
+                color:#fff;
+                font-size: 14px;
+                line-height: 30px;
+                border-radius: 3px;
+            }
+            .commit{
+                clear: both;
+                display: block;
+                background-color: #1088f1;
+                color:#fff;
+                cursor: pointer;
+                width: 120px;
+                line-height: 36px;
+                margin: 80px auto;
+                border:none;
+                border-radius: 5px;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="win">
+            <span class="imgBox imgOneBox">
+                <span id="imgOne" class="img"></span>
+                <input type="file" accept="image/jpg,image/png, image/bmp" class="fileInput" id="file1" onchange="showImg('file1','imgOne')">
+                <label for="file1">图像一</label>
+            </span>
+            <span class="imgBox imgTwoBox">
+                <span id="imgTwo" class="img"></span>
+                <input type="file" accept="image/jpg,image/png, image/bmp" class="fileInput" id="file2" onchange="showImg('file2','imgTwo')">
+                <label for="file2">图像二</label>
+            </span>
+            <input type="button" name="" class="commit" value="对比" onclick="commit()">
+        </div>
+
+        <script type="text/javascript" src="http://apps.bdimg.com/libs/jquery/2.1.4/jquery.js"></script>
+        <script type="text/javascript">
+
+            var imgOne = '';
+            var imgTwo = '';
+
+            function commit(){
+                // $.ajax({
+                //     type:'POST',
+                //     url:'https://aip.baidubce.com/rest/2.0/face/v3/match?access_token=24.5a689f9b06ce41acae13793b77d40eb2.2592000.1532142541.282335-11423364', // 对比
+                //     // url:'https://aip.baidubce.com/rest/2.0/face/v3/detect?access_token=24.5a689f9b06ce41acae13793b77d40eb2.2592000.1532142541.282335-11423364', // 检测
+                //     data:JSON.stringify([  // 对比
+                //         {
+                //             "image": imgOne,
+                //             "image_type": "BASE64",
+                //         },
+                //         {
+                //             "image": imgTwo,
+                //             "image_type": "BASE64",
+                //         }
+                //     ]),
+                //     // data:JSON.stringify(  // 检测
+                //     //     {
+                //     //         "image": imgOne,
+                //     //         "image_type": "BASE64",
+                //     //     }
+                //     // ),
+                //     header:{
+                //         'Content-Type':'application/json',
+                //     },
+                //     success:function(res){
+                //         console.log(res)
+                //     },
+                //     error:function(err){
+                //         console.log(err)
+                //     }
+                // })
+
+                var xhr = new XMLHttpRequest();
+                xhr.open('post', 'https://aip.baidubce.com/rest/2.0/face/v3/match?access_token=24.5a689f9b06ce41acae13793b77d40eb2.2592000.1532142541.282335-11423364');
+                xhr.setRequestHeader("Content-type","application/json");
+                var param = [
+                    {
+                       "image": imgOne,
+                       "image_type": "BASE64",
+                   },
+                   {
+                       "image": imgTwo,
+                       "image_type": "BASE64",
+                   }
+                ];
+                xhr.send(JSON.stringify(param));
+                xhr.onreadystatechange = function () {
+                    // 这步为判断服务器是否正确响应
+                    if (xhr.readyState == 4) {
+                        if(xhr.status == 200) {
+                            console.log(xhr.responseText);
+                        }else{
+                            console.log(xhr.responseText);
+                        }
+                    }
+                };
+            }
+
+            function showImg(inputName,imgName){
+                var file = document.getElementById(inputName);
+                if(file.files && file.files[0]){
+                    var reader = new FileReader();
+                    reader.onload = function(evt){
+                        var size = file.files[0].size/1024/1024;
+                        document.getElementById(imgName).innerHTML = '<img src="' + evt.target.result + '" />';
+                        var baseArr = evt.target.result.split(';base64,');
+                        if(baseArr[1]){
+                            window[imgName] = baseArr[1];
+                        }else{
+                            window[imgName] = baseArr[0];
+                        }
+                    }
+                    reader.readAsDataURL(file.files[0]);
+                }
+            }
+
+        </script>
+    </body>
+</html>
