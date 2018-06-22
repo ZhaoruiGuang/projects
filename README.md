@@ -1,17 +1,13 @@
-# all projects
+# AI_readFace
 
-这里是我所有的学习项目，欢迎小伙伴们加入！
+此项目是学习调用百度AI人脸识别API，来进行人脸图像的识别和对比的学习项目！
 
 
 ### 项目说明
-- react_antd
-	- 后台管理系统
-    - gulp@3.9.1 
-    - webpack@2.7.0
-    - react@15.0.0
-    - ant Design 
-- vue_share
-    - 分享组件
-    - vue（1.x 或 2.x 均可）
-    - 新浪微博、qq空间、微信朋友圈
+- 项目使用node搭建静态服务器，渲染页面，并以 node 程序调用百度获取 access_token 的接口，获取 access_token.
 
+### 文件说明
+- index.js
+	- node 配置文件
+- index.html
+    - 图像上传及对比的前台展示页面
