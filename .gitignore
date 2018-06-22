@@ -1,0 +1,25 @@
+target/effective-pom/spring-boot-dependencies.xml
+# Created by .ignore support plugin (hsz.mobi)
+
+# IntelliJ project files
+.idea
+*.iml
+out
+gen
+
+# node.js dist
+/node_modules
+
+# Eclipse project files
+.classpath
+.project
+/.settings
+/**/.settings
+
+# Log files
+
+*.log
+
+dist
+target
+/.metadata/
