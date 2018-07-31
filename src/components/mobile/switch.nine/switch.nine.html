@@ -1,0 +1,40 @@
+<div class="switch-nine">
+	<div class="title-word page9-title-word">
+		<span class="title-word-one white-sma-title-word">在线</span>
+		<span class="title-word-two white-big-title-word"><b>预约</b></span>
+		<p class="title-word-three">Booking</p>
+	</div>
+	<form class="booking-box" id="booking-box" :class="{'animate-fadein': animate}">
+		<div class="youName information">
+			<span>您的姓名：</span>
+			<input type="text" placeholder="请您输入" v-model="userName" id="username" maxlength = '20'>
+		</div>
+		<div class="reg-box">
+			<span v-if="!regName" style="color:#F30A26">非法姓名</span>
+		</div>
+
+		<div class="youPhone information">
+			<span>手机号码：</span>
+			<input type="text" placeholder="请您输入" v-model="cellPhone" id="cellphone">
+		</div>
+		<div class="reg-box">
+			<span v-if="!regPhone" style="color:#F30A26">格式错误</span>
+		</div>
+
+		<div class="youDollor information">
+			<span>预约金额（万元）：</span>
+			<input type="text" placeholder="请您输入" v-model="fundMoney" id="fundmoney" maxlength = '6'>
+		</div>
+		<div class="reg-box">
+			<span v-if="!regMoney" style="color:#F30A26">预约金额应为100以上的整数</span>
+		</div>
+	</form>
+	<div class="successTip" :class="{'animate-fadeout': animate}">
+		<!-- 预约成功！ -->
+		{{msg}}
+	</div>
+	<div class="company-name">北京神州赤骥基金管理有限公司</div>
+	<!-- <div class="booking-phone">抢购热线：400-999-8363</div> -->
+	<div class="booking-phone"></div>
+	<input type="button" name="submit" value="提交" class="submit-btn" v-on:click="postSubmit" :disabled = "subAble">
+</div>

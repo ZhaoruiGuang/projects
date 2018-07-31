@@ -1,25 +1,11 @@
-target/effective-pom/spring-boot-dependencies.xml
-# Created by .ignore support plugin (hsz.mobi)
+# Include your project-specific ignores in this file
+# Read about how to use .gitignore: https://help.github.com/articles/ignoring-files
 
-# IntelliJ project files
-.idea
-*.iml
-out
-gen
-
-# node.js dist
-/node_modules
-
-# Eclipse project files
-.classpath
-.project
-/.settings
-/**/.settings
-
-# Log files
-
-*.log
-
+assets
 dist
-target
-/.metadata/
+node_modules
+ncp-debug.log
+npm-debug.log
+*.json
+!package.json
+server.config.js

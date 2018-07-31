@@ -1,0 +1,41 @@
+@charset "UTF-8";
+@import 'helpers/helpers';
+.switch-eight {
+   width:100%;
+   height:100%;
+   overflow:hidden;
+   background-image: url("../public.img/bgimg-six.png");
+   background-repeat: no-repeat;
+   background-size: 10.8rem 100%;
+}
+.page8-title-word{
+    margin-top:1.8rem;
+}
+.remark-word{
+  text-indent:none;
+  font-size:0.6rem;
+  line-height:0.8rem;
+  margin-top:1rem;
+  color:#9a9f9f;
+}
+.remark-list{
+    margin-top:0.5rem;
+}
+.remark-list li{
+    margin-top:0.3rem;
+    line-height:0.52rem;
+}
+@media screen and(max-height:480px){
+    .page8-title-word{
+        margin-top:1rem;
+    }
+    .remark-word{
+        margin-top:0.2rem;
+        font-size:0.5rem;
+        line-height:0.7rem;
+    }
+    // .remark-list li{
+    //     margin-top:0.3rem;
+    //     line-height:0.68rem;
+    // }
+}

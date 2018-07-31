@@ -1,0 +1,27 @@
+@charset "utf-8";
+
+.icon {
+    display: inline-block;
+    vertical-align: middle;
+    position: relative;
+    top: -2px;
+}
+
+// 图片图标
+//
+// @example html - 使用背景图片
+//     <i class="icon image-icon image-icon-home"></i>
+//
+// @example html - 使用图片元素
+//     <img class="icon image-icon" src="./home.png" />
+//
+// @example html - 在内部使用多张背景图片，并自定义切换行为
+//     <i class="icon image-icon">
+//         <img class="default" src="./home.png" />
+//         <img class="active" src="./home-active.png" />
+//     </i>
+.image-icon {
+    img {
+        display: block;
+    }
+}

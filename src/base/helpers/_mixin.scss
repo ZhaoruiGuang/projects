@@ -1,0 +1,436 @@
+@charset "utf-8";
+
+////
+/// 混入类
+/// 混入类用于输出一段通用的 CSS 片段。
+/// 通过混入类，可以只编写很少的代码，就能方便且快速的生成一大段 CSS，并且可以通过参数进行定制。
+///
+/// @group API
+/// @author co-mall
+////
+
+
+/// 清除元素内浮动
+/// @example scss - 使用
+///     .box {
+///         @include clearfix;
+///     }
+///
+/// @example css - 输出
+///     .box:before, .box:after {
+///         content: " ";
+///         display: table;
+///     }
+///
+///     .box:after {
+///         clear: both;
+///     }
+@mixin clearfix() {
+    *zoom: 1;
+
+    &:before,
+    &:after {
+        content: " ";
+        display: table;
+    }
+
+    &:after {
+        clear: both;
+    }
+}
+
+/// 清除元素内浮动
+/// @example scss - 使用
+///     .title {
+///         @include  text-ellipsis;
+///     }
+///
+/// @example css - 输出
+///     .title {
+///         overflow: hidden;
+///         text-overflow: ellipsis;
+///         white-space: nowrap;
+///     }
+
+@mixin text-ellipsis() {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+
+/// 设置元素的宽度及高度
+///
+/// @param {Length} $width - 宽度
+/// @param {Length} $height [$width] - 高度
+///
+/// @output
+/// - 只传入一个值时，则该值即为宽度也为高度；
+/// - 传入两个值时，则第一个为宽度，第二个为高度；
+/// - 如果某一个值为 null，则不会输出其对应的属性。
+///
+/// @example scss - 使用
+///     .box {
+///         @include size(10px);
+///     }
+///
+///     .box {
+///         @include size(10px, 20px);
+///     }
+///
+///     .box {
+///         @include size(null, 20px);
+///     }
+///
+/// @example css - 输出
+///     .box {
+///         width: 10px;
+///         height: 10px;
+///     }
+///
+///     .box {
+///         width: 10px;
+///         height: 20px;
+///     }
+///
+///     .box {
+///         height: 20px;
+///     }
+@mixin size($width, $height: $width) {
+    width: $width;
+    height: $height;
+}
+
+
+/// 以 $element-box-maps 中的某个尺寸配置为基础生成一个新的定制的尺寸配置。
+///
+/// @access private
+////
+/// @param {String} $name - 在 $element-box-maps 集合中配置的一个尺寸规格的名称
+/// @param {Length} $width - 宽度
+/// @param {Length} $height - 高度
+/// @param {Length} $padding-vertical - 垂直内边距
+/// @param {Length} $padding-horizontal - 水平内边距
+/// @param {Length} $border-width - 边框宽度
+/// @param {Length} $border-radius - 圆角
+/// @param {Length} $font-size - 文字大小
+/// @param {Length} $line-height - 行高
+///
+/// @example scss
+///     $element-box-maps: (m: (
+///         $padding-vertical: 10px,
+///         $padding-horizontal: 20px,
+///         border-width: 1px
+///     ));
+///
+///     private-get-distinctive-element-box-by-name(
+///         $name: m,
+///         $width: 100px,
+///         $height: 200px,
+///         $border-width: null
+///     );
+///
+///     // return:
+///     // (
+///     //   $width: 100px,
+///     //   $height: 200px,
+///     //   $padding-vertical: 10px,
+///     //   $padding-horizontal: 20px,
+///     //   $border-width: null
+///     // )
+@function private-get-distinctive-element-box-by-name(
+    $name:                 null,
+    $width:                null,
+    $height:               null,
+    $padding-vertical:     null,
+    $padding-horizontal:   null,
+    $border-width:         null,
+    $border-radius:        null,
+    $font-size:            null,
+    $line-height:          null
+) {
+    $eb:  map-get($element-box-maps, $name);
+    $eb:  if($eb, $eb, ());
+    $deb: ();
+
+    @if $width              { $deb: map-set($deb, width,              $width);              }
+    @if $height             { $deb: map-set($deb, height,             $height);             }
+    @if $padding-vertical   { $deb: map-set($deb, padding-vertical,   $padding-vertical);   }
+    @if $padding-horizontal { $deb: map-set($deb, padding-horizontal, $padding-horizontal); }
+    @if $border-width       { $deb: map-set($deb, border-width,       $border-width);       }
+    @if $border-radius      { $deb: map-set($deb, border-radius,      $border-radius);      }
+    @if $font-size          { $deb: map-set($deb, font-size,          $font-size);          }
+    @if $line-height        { $deb: map-set($deb, line-height,        $line-height);        }
+
+    @return map-merge( map-merge( (), $eb ), $deb );
+};
+
+/// 将一个尺寸规格配置中的边框宽度转移给内边距
+///
+/// @access private
+///
+/// @param {Name} $element-box - 尺寸规格配置集合
+///
+/// @example
+///     private-transfer-element-box-border-width((
+///         $padding-vertical: 5px,
+///         $padding-horizontal: 5px,
+///         $border-width: 1px
+///     ));
+///
+///     // return:
+///     // (
+///     //   $padding-vertical: 6px,
+///     //   $padding-horizontal: 6px,
+///     //   $border-width: 0
+///     // )
+@function private-transfer-element-box-border-width($element-box) {
+    $bw: map-get($element-box, border-width);
+    $pv: map-get($element-box, padding-vertical);
+    $ph: map-get($element-box, padding-horizontal);
+
+    @if $bw {
+        $pv: if($pv, $pv + $bw, $bw);
+        $ph: if($ph, $ph + $bw, $bw);
+    }
+
+    @return map-merge(
+        $element-box,
+        (
+            border-width: 0,
+            padding-vertical: $pv,
+            padding-horizontal: $ph
+        )
+    );
+}
+
+/// 除去一个尺寸规格配置中的水平内边距
+///
+/// @access private
+///
+/// @param {Name} $element-box - 尺寸规格配置集合
+///
+/// @example
+///     private-trim-element-box-padding-horizontal((
+///         $padding-vertical: 5px,
+///         $padding-horizontal: 5px
+///     ));
+///
+///     // return:
+///     // (
+///     //   $padding-vertical: 5px,
+///     //   $padding-horizontal: 0
+///     // )
+@function private-trim-element-box-padding-horizontal($element-box) {
+    @return map-merge($element-box, (padding-horizontal: 0));
+}
+
+/// 设置元素盒模型
+///
+/// @access private
+///
+/// @param {Length}[null] $width - 宽度
+/// @param {Length}[null] $height - 高度
+/// @param {Length}[null] $padding-vertical - 垂直内边距
+/// @param {Length}[null] $padding-horizontal - 水平内边距
+/// @param {Length}[null] $font-size - 文字大小
+/// @param {Length}[null] $line-height - 文字行高
+/// @param {Length}[null] $border-width - 边框宽度
+/// @param {Length}[null] $border-radius - 圆角
+@mixin element-box(
+    $width:                null,
+    $height:               null,
+    $padding-vertical:     null,
+    $padding-horizontal:   null,
+    $border-width:         null,
+    $border-radius:        null,
+    $font-size:            null,
+    $line-height:          null
+) {
+
+    @if $width {
+        width: $width;
+    }
+
+    @if $height {
+        height: $height;
+    }
+
+    @if $padding-vertical and $padding-horizontal {
+        padding: $padding-vertical $padding-horizontal;
+    }
+    @else if $padding-vertical {
+        padding: {
+            top: $padding-vertical;
+            bottom: $padding-vertical;
+        }
+    }
+    @else if $padding-horizontal {
+        padding: {
+            left: $padding-horizontal;
+            right: $padding-horizontal;
+        }
+    }
+
+    @if $font-size {
+        font-size: $font-size;
+    }
+
+    @if $line-height {
+        line-height: $line-height;
+    }
+
+    @if $border-width {
+        border-width: $border-width;
+    }
+
+    @if $border-radius {
+        border-radius: $border-radius;
+    }
+}
+
+/// 基于一组配置数据集合设置元素盒模型，另外提供自定义配置参数用于覆盖集合中对应的配置数据。
+///
+/// @access private
+///
+/// @param {Map} $map                          - 元素盒模型配置数据
+/// @param {Length}[null] $width               - 宽度，将覆盖 $map 中的 width 配置
+/// @param {Length}[null] $height              - 高度，将覆盖 $map 中的 height 配置
+/// @param {Length}[null] $padding-vertical    - 垂直内边距，将覆盖 $map 中的 padding-vertical 配置
+/// @param {Length}[null] $padding-horizontal  - 水平内边距，将覆盖 $map 中的 padding-horizontal 配置
+/// @param {Length}[null] $font-size           - 文字大小，将覆盖 $map 中的 font-size 配置
+/// @param {Length}[null] $line-height         - 文字行高，将覆盖 $map 中的 line-height 配置
+/// @param {Length}[null] $border-width        - 边框宽度，将覆盖 $map 中的 border-width 配置
+/// @param {Length}[null] $border-radius       - 圆角，将覆盖 $map 中的 border-radius 配置
+@mixin element-box-by-map(
+    $map,
+    $width:                null,
+    $height:               null,
+    $padding-vertical:     null,
+    $padding-horizontal:   null,
+    $border-width:         null,
+    $border-radius:        null,
+    $font-size:            null,
+    $line-height:          null
+) {
+    @include element-box(
+        map-get($map, width),
+        map-get($map, height),
+        map-get($map, padding-vertical),
+        map-get($map, padding-horizontal),
+        map-get($map, border-width),
+        map-get($map, border-radius),
+        map-get($map, font-size),
+        map-get($map, line-height)
+    );
+}
+
+/// 基于一个尺寸规则名称设置元素盒模型，另外提供自定义配置参数用于覆盖集合中对应的配置数据。
+///
+/// @param {Map} $name                         - 尺寸规格名称
+/// @param {Length}[null] $width               - 宽度，将覆盖 $map 中的 width 配置
+/// @param {Length}[null] $height              - 高度，将覆盖 $map 中的 height 配置
+/// @param {Length}[null] $padding-vertical    - 垂直内边距，将覆盖 $map 中的 padding-vertical 配置
+/// @param {Length}[null] $padding-horizontal  - 水平内边距，将覆盖 $map 中的 padding-horizontal 配置
+/// @param {Length}[null] $font-size           - 文字大小，将覆盖 $map 中的 font-size 配置
+/// @param {Length}[null] $line-height         - 文字行高，将覆盖 $map 中的 line-height 配置
+/// @param {Length}[null] $border-width        - 边框宽度，将覆盖 $map 中的 border-width 配置
+/// @param {Length}[null] $border-radius       - 圆角，将覆盖 $map 中的 border-radius 配置
+@mixin element-box-by-name(
+    $name,
+    $width:                null,
+    $height:               null,
+    $padding-vertical:     null,
+    $padding-horizontal:   null,
+    $border-width:         null,
+    $border-radius:        null,
+    $font-size:            null,
+    $line-height:          null
+) {
+    @include element-box-by-map(private-get-distinctive-element-box-by-name(
+        $name,
+        $width,
+        $height,
+        $padding-vertical,
+        $padding-horizontal,
+        $border-width,
+        $border-radius,
+        $font-size,
+        $line-height
+    ));
+}
+
+
+/// 基于一个尺寸规则名称设置无边框元素盒模型，如果配置中有提供元素边框，则将边框宽度分配到水平及垂直内边距上，
+/// 另外提供自定义配置参数用于覆盖集合中对应的配置数据。
+///
+/// @param {Map} $name                         - 尺寸规格名称
+/// @param {Length}[null] $width               - 宽度，将覆盖 $map 中的 width 配置
+/// @param {Length}[null] $height              - 高度，将覆盖 $map 中的 height 配置
+/// @param {Length}[null] $padding-vertical    - 垂直内边距，将覆盖 $map 中的 padding-vertical 配置
+/// @param {Length}[null] $padding-horizontal  - 水平内边距，将覆盖 $map 中的 padding-horizontal 配置
+/// @param {Length}[null] $font-size           - 文字大小，将覆盖 $map 中的 font-size 配置
+/// @param {Length}[null] $line-height         - 文字行高，将覆盖 $map 中的 line-height 配置
+/// @param {Length}[null] $border-radius       - 圆角，将覆盖 $map 中的 border-radius 配置
+@mixin element-box-by-name-b(
+    $name:                 null,
+    $width:                null,
+    $height:               null,
+    $padding-vertical:     null,
+    $padding-horizontal:   null,
+    $border-radius:        null,
+    $font-size:            null,
+    $line-height:          null
+) {
+    $element-box: private-get-distinctive-element-box-by-name(
+        $name,
+        $width,
+        $height,
+        $padding-vertical,
+        $padding-horizontal,
+        $border-radius,
+        $font-size,
+        $line-height
+    );
+
+    $element-box: private-transfer-element-box-border-width($element-box);
+
+    @include element-box-by-map($element-box);
+}
+
+/// 基于一个尺寸规则名称设置无边框且无水平内边距的元素盒模型，如果配置中有提供元素边框，则将边框宽度分配到垂直内边距上，
+/// 而水平内边距将直接设置为 0。另外提供自定义配置参数用于覆盖集合中对应的配置数据。
+///
+/// @param {Map} $name                         - 尺寸规格名称
+/// @param {Length}[null] $width               - 宽度，将覆盖 $map 中的 width 配置
+/// @param {Length}[null] $height              - 高度，将覆盖 $map 中的 height 配置
+/// @param {Length}[null] $padding-vertical    - 垂直内边距，将覆盖 $map 中的 padding-vertical 配置
+/// @param {Length}[null] $font-size           - 文字大小，将覆盖 $map 中的 font-size 配置
+/// @param {Length}[null] $line-height         - 文字行高，将覆盖 $map 中的 line-height 配置
+/// @param {Length}[null] $border-radius       - 圆角，将覆盖 $map 中的 border-radius 配置
+@mixin element-box-by-name-b-ph(
+    $name:                 null,
+    $width:                null,
+    $height:               null,
+    $padding-vertical:     null,
+    $padding-horizontal:   null,
+    $border-radius:        null,
+    $font-size:            null,
+    $line-height:          null
+) {
+    $element-box: private-get-distinctive-element-box-by-name(
+        $name,
+        $width,
+        $height,
+        $padding-vertical,
+        $padding-horizontal,
+        $border-radius,
+        $font-size,
+        $line-height
+    );
+
+    $element-box: private-transfer-element-box-border-width($element-box);
+    $element-box: private-trim-element-box-padding-horizontal($element-box);
+
+    @include element-box-by-map($element-box);
+}

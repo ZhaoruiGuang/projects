@@ -1,0 +1,33 @@
+.fullscreen {
+    width: 100%;
+}
+
+.narrow {
+    min-width: $narrow-page-width;
+
+    .wrap {
+        width: $narrow-page-width;
+        margin: 0 auto;
+    }
+}
+
+.wide {
+    min-width: $wide-page-width;
+
+    .wrap {
+        width: $wide-page-width;
+        margin: 0 auto;
+    }
+}
+
+.mask {
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 99;
+}

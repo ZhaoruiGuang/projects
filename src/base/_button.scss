@@ -1,0 +1,118 @@
+////
+/// 通用的按钮样式
+////
+
+/// 设置按钮样式，样式配置数据内容如下：
+///
+/// - bg: 背景色
+/// - border: 边框颜色
+/// - text: 文本颜色
+///
+/// @access private
+/// @param {Map} $config - 样式配置
+@mixin set-btn-style($config) {
+    $bg: map-get($config, 'bg');
+    $text: map-get($config, 'text');
+    $border: map-get($config, 'border');
+
+    background: $bg;
+    color: $text;
+    border-color: $border;
+
+    &:link,
+    &:visited,
+    &:active,
+    &:hover {
+        color: $text;
+    }
+}
+
+.btn {
+    display: inline-block;
+
+    text-align: center;
+    cursor: pointer;
+    text-decoration: none;
+
+    color: $white;
+    font: inherit;
+    background: #ff6655;
+    border-radius: 5px;
+
+    margin: 0;
+    padding: 0;
+
+    position: relative;
+    user-select: none;
+
+    outline: 0;
+
+    &:hover {
+        text-decoration: none;
+    }
+}
+
+
+// 按钮尺寸规格
+// -----------------------------------------------------------------------------
+
+@each $name, $config in $element-box-maps {
+    .btn-#{$name} {
+        @include element-box-by-name($name);
+    }
+}
+
+.btn {
+    @extend .btn-#{$default-element-box-name};
+}
+
+// 按钮样式
+// -----------------------------------------------------------------------------
+
+$btn-style: (
+    primary: (
+        bg: $primary-color,
+        border: darken($primary-color, 5%),
+        text: #fff
+    ),
+    lite: (
+        bg: $grey-lighter,
+        border: darken($grey-lighter, 5%),
+        text: $grey-dark
+    ),
+    confirm: (
+        bg: #ff6655,
+        border: $orange,
+        text: #fff
+    ),
+    popup-confirm: (
+        bg: $blue-light,
+        border: darken($blue-light, 5%),
+        text: #fff
+    ),
+    cancel: (
+        bg: $white,
+        border: darken($grey-lighter, 5%),
+        text: $grey-dark
+    )
+);
+
+
+@each $name, $config in $btn-style {
+    .btn-#{$name} {
+        @include set-btn-style($config);
+    }
+}
+
+// 按钮禁用样式
+// ----------------------------------------------------------------------------
+
+.btn[disabled] {
+    $disable-style: (
+        bg: #ff6655,
+        border: #ddd,
+        text: $font-color-quiet
+    );
+
+    @include set-btn-style($disable-style);
+}

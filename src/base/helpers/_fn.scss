@@ -1,0 +1,86 @@
+////
+/// 函数
+/// 函数用于执行一些数据运算及操作，比如尺寸计算，颜色亮度判断，集合内容的设置与读取等。
+///
+/// @group API
+/// @author co-mall
+////
+
+/// Slightly lighten a color
+/// @access public
+/// @param {Color} $color - color to tint
+/// @param {Number} $percentage - percentage of `$color` in returned color
+/// @return {Color}
+@function tint($color, $percentage) {
+  @return mix($color, white, $percentage);
+}
+
+/// Slightly darken a color
+/// @access public
+/// @param {Color} $color - color to shade
+/// @param {Number} $percentage - percentage of `$color` in returned color
+/// @return {Color}
+@function shade($color, $percentage) {
+  @return mix($color, black, $percentage);
+}
+
+/// 设置集合中的某一个属性
+/// @param {Map} $source - 被设置的集合
+/// @param {Name} $key - 待设置的属性的名称
+/// @param {*} $value - 待设置的值
+/// @example sass
+///     $map: ();
+///     $map: map-set($map, name, "biossun");
+@function map-set($source, $key, $value) {
+    @return map-merge($source, ($key: $value));
+}
+
+/// 获取多层嵌套的 map 数据中的某个属性
+///
+/// @param {Map} $source - 需要从中获取数据的源数据集合
+/// @param {List} $keys - 属性的访问路径
+///
+/// @example sass
+///     $data: (
+///         user: (
+///             name: (
+///                 first-name: 'bios',
+///                 last-name: 'sun'
+///             ),
+///             sex: 1
+///         )
+///     )
+///
+///     map-deep-get($data, user name first-name);  // --> 'bios'
+///     map-deep-get($data, user name);             // --> ( first-name: 'bios', last-name: 'sun' )
+///     map-deep-get($data, user sex);              // --> 1
+///     map-deep-get($data, user birthday);         // --> null
+///     map-deep-get($data);                        // --> `return $data`
+@function map-deep-get($source, $keys: null) {
+    $length: length($keys);
+
+    @if $source == null or $keys == null or $length == 0 {
+        @return $source;
+    }
+
+    @for $n from 1 through $length {
+        $source: map-get($source, nth($keys, $n));
+
+        @if $source == null {
+            @return $source;
+        }
+    }
+
+    @return $source;
+}
+
+/// 计算行高的像素值
+///
+/// @param {Length} $font-size[$font-size-base] - 文字大小，只支持 px 单位
+/// @param {Length} $line-height[$line-height-base] - 行高，支持单位为 px 或 em
+/// @example:
+///    line-height: computed-line-height();
+///    line-height: computed-line-height(12px, 1.428);
+@function computed-line-height($font-size, $line-height) {
+    @return if(unit($line-height) == 'px', $line-height, floor($font-size * $line-height));
+}

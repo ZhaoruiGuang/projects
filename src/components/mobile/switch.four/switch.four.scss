@@ -1,0 +1,126 @@
+@charset "UTF-8";
+@import 'helpers/helpers';
+
+.switch-four {
+   width:100%;
+   height:100%;
+   overflow:hidden;
+   background-image: url("../public.img/public.bgimg.png");
+   background-repeat: no-repeat;
+   background-size: 10.8rem 4.38rem;
+   background-position: 0 -1.2rem;   
+}
+.page4-title-word{
+    margin-top:0.6rem;
+}
+.bossPhoto{
+    width:100%;
+    height:3.67rem;
+    text-align:center;
+    margin-top:0.2rem;
+    img{
+        width:3.62rem;
+        height:3.67rem;
+        opacity:0;
+        &.animatePic{
+            animation-name: animate-six;
+            animation-duration: 0.5s;
+            animation-timing-function: ease-in-out;
+            animation-delay: 0s;
+            animation-iteration-count: 1;
+            opacity: 1;
+        }
+    }
+}
+.bossName{ 
+    width:100%;
+    height:1.18rem;  
+}
+.boss{
+    font-size:0.62rem;
+    line-height:0.78rem;
+    text-align:center;
+    margin-top:0.4rem; 
+    opacity:0;
+    &.animate-four{
+        animation-name: animate-four;
+        animation-duration: 0.5s;
+        animation-timing-function: ease-in-out;
+        animation-delay: 0s;
+        animation-iteration-count: 1;
+        opacity: 1;
+    } 
+    span{
+        display: inline-block;
+        margin-left:0.65rem;
+    }  
+}
+.bossMsg{
+    width:100%;
+    position:absolute;
+    top:8rem;
+}
+.company{
+    font-size:0.48rem;
+    text-align:center;
+    line-height:0.72rem;
+}
+.boss-p{
+    margin-left:0.4rem;
+    margin-right:0.4rem;
+}
+.boss-p-one{
+    margin-top:0.4rem;
+}
+//  iPhone4  布局改变
+@media screen and(max-height:480px){
+    .page4-title-word{
+        margin-top:0.4rem;
+    }
+    .bossPhoto{
+        width:3rem;
+        height:3rem;
+        margin-top:0;
+        float:left;
+        margin-left:2.3rem;
+        img{
+            width:3rem;
+            height:3rem;
+        }
+    }
+    .bossName{
+        float:left;
+        width:4rem;
+        padding-left:1rem;
+        padding-bottom:0.2rem;
+    }
+    .boss{
+        font-size:0.5rem;
+        line-height:0.5rem;
+        text-align:left;
+        animation-name: animate-four-iphone4;
+    }
+    .boss span{
+        display:block;
+        width:2.5rem;
+        margin-left:-0.2rem;
+        margin-top:1rem;
+    }
+    .bossMsg{
+        top:5.7rem;
+    }
+    .company{
+        // clear:both;
+        float:left;
+        height:0.2rem;
+        opacity: 0;
+        line-height:0.46rem;
+    }
+    .boss-p{
+        line-height:0.6rem;
+    }
+    .boss-p-one{
+        clear:both;
+        margin-top:0.2rem;
+    }
+}

@@ -1,0 +1,67 @@
+/**
+ * reset html tag
+ * --------------------------------------------------
+ */
+
+body,
+ol, ul, li, dl, dt, dd,
+h1, h2, h3, h4, h5, h6, p, pre,
+form, fieldset, legend, input, textarea, select, button,
+blockquote, th, td, hr, article, aside, details,
+figcaption, figure, header, footer, section, hgroup, menu, nav {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-size: $font-size-base;
+    line-height: $line-height-base;
+    font-family: $font-family-base;
+    color: $font-color-base;
+    background-color: $primary-bg-color;
+}
+
+ol, ul, li {
+    list-style: none outside none;
+}
+
+img {
+    border: 0;
+}
+
+input, a, select, button {
+    outline: 0;
+
+    &::-moz-focus-inner {
+        border-color: transparent!important;
+    }
+}
+
+a {
+    text-decoration: none;
+    color: $link-color;
+
+    &:visited {
+        color: $link-visited-color;
+    }
+
+    &:hover {
+        text-decoration: none;
+    }
+
+    &:active {
+        color: $link-visited-color;
+    }
+}
+
+i, s {
+    display: inline-block;
+}
+
+.clearfix {
+    clear: both;
+}
+
+.hide  {
+    display: none;
+}

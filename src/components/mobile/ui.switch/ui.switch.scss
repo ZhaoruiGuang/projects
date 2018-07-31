@@ -1,0 +1,47 @@
+@charset "UTF-8";
+@import 'helpers/helpers',
+
+    'reset';
+
+.switch-con {
+    width: 100%;
+    height: 100%;
+    position: relative;
+
+    &.init {
+        // visibility: hidden;
+    }
+    p{
+        text-indent:2em;
+    }
+    .title-word-three{
+        text-indent:0;
+    }
+    .switch-item {
+        display: none;
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        z-index: 49;
+        background-size:cover;
+        background-color: #fff;
+
+        &.prev {
+            display: block;
+            transform: translate(0, -100%);
+            z-index: 51;
+        }
+        &.next {
+            display: block;
+            transform: translate(0, 100%);
+            z-index: 51;
+        }
+        &.active {
+            display: block;
+            z-index: 50;
+        }
+        &.moving {
+            transition: top .3s;
+        }
+    }
+}

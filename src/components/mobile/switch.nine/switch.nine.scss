@@ -1,0 +1,134 @@
+@charset "UTF-8";
+@import 'helpers/helpers';
+.switch-nine{
+   width:100%;
+   height:100%;
+   overflow:hidden;
+   background-image: url("../public.img/bgimg-six.png");
+   background-repeat: no-repeat;
+   background-size: 10.8rem 100%;
+}
+.page9-title-word{
+    margin-top:1.5rem;
+}
+.information{
+    width:9.3rem;
+    height:0.75rem;
+    margin:0 auto;
+    margin-top:0.9rem;
+}
+.information span{
+    font-size:0.48rem;
+    color:#fff;
+}
+.information input{
+    width:6.5rem;
+    line-height:0.7rem;
+    font-size:0.38rem;
+    padding-left:0.2rem;
+    color:#fff;
+    border:none;
+    background-color: #01040a;
+    border-bottom:1px solid #818185;
+}
+.youDollor input{
+    width:4.5rem;
+}
+.reg-box{
+    width:100%;
+    height:1rem;
+    line-height:1rem;
+    padding-left:3.2rem;
+}
+.booking-box{
+    opacity: 1;
+    &.animate-fadein{
+        animation-name: animate-seven;
+        animation-duration: 0.5s;
+        animation-timing-function: ease-in-out;
+        animation-delay: 0s;
+        animation-iteration-count: 1;
+        opacity: 0;
+    }
+}
+.successTip{
+    position:absolute;
+    z-index:-55;
+    top:4.6rem;
+    width:100%;
+    height:6.8rem;
+    text-align:center;
+    line-height:6.8rem;
+    font-size:0.6rem;
+    background-color: #000;
+    color:#818185;
+    opacity:0;
+    &.animate-fadeout{
+        animation-name: animate-six;
+        animation-duration: 0.5s;
+        animation-timing-function: ease-in-out;
+        animation-delay: 0s;
+        animation-iteration-count: 1;
+        opacity: 1;
+        z-index:55;
+    }
+}
+.company-name{
+    font-size:0.6rem;
+    line-height:0.9rem;
+    color:#818185;
+    text-align:center;
+    margin-top:0.2rem;
+}
+.booking-phone{
+    // font-size:0.72rem;
+    // line-height:1.18rem;
+    // color:#818185;
+    // text-align:center;
+    width:78%;
+    height:1.18rem;
+    margin:0 auto;
+    margin-top:0.3rem;
+    background-image: url("img/buyPhone.png");
+    background-color: #000;
+    background-size:100% 1rem;
+    background-repeat: no-repeat;
+}
+.submit-btn{
+    width:1.56rem;
+    height:1.56rem;
+    border-radius:100%;
+    background-color: #000;
+    border:none;
+    background-image: url("img/bgimg-nine.png");
+    background-size:1.56rem 1.56rem;
+    font-size:0.52rem;
+    line-height:1.56rem;
+    text-align:center;
+    color:#929598;
+    // color:#fff;
+    margin-left:4.6rem;
+    margin-top:0.8rem;
+}
+@media screen and(max-height:480px){
+    .page9-title-word{
+        margin-top:1rem;
+    }
+    .information{
+        width:9.3rem;
+        height:0.7rem;
+        margin-top:0.2rem;
+    }
+    .information input{
+        line-height:0.6rem;
+        font-size:0.34rem;
+    }
+    .reg-box{
+        height:0.8rem;
+        line-height:0.8rem;
+    }
+    .submit-btn{
+        margin-left:4.6rem;
+        margin-top:0.5rem;
+    }  
+}

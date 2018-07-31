@@ -1,0 +1,40 @@
+@charset "UTF-8";
+
+html, body {
+    overflow: hidden;
+    height: 100%;
+}
+#box{
+    position: fixed;
+    z-index:999;
+    top: 18px;
+    right: 10px;
+    width: 30px;
+    height: 30px;
+    background-image: url("img/song.png");
+    background-size:30px 30px;
+    background-repeat: no-repeat;
+    animation-name: myAnimate;
+    animation-duration: 3s;
+    animation-timing-function: linear; 
+    animation-delay: 0s;
+    animation-iteration-count:infinite;
+    animation-play-state: running;
+
+    &.stopPlay{
+	    animation-play-state: paused;
+	}
+
+    audio{
+	    width: 40px;
+	    height: 40px;
+	}
+}
+@keyframes myAnimate{
+    from{
+        transform: rotate(0deg);
+    }
+    to{
+        transform: rotate(360deg);
+    }
+}

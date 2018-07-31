@@ -1,0 +1,262 @@
+@charset "utf-8";
+
+////
+/// 变量配置
+/// 用于颜色，文本，尺寸等内容的配置。
+///
+/// @group API
+/// @author co-mall
+////
+
+
+//  文字
+// -----------------------------------------------------------------------------
+
+/// 默认字体集
+$font-family-base:              Microsoft Yahei,Verdana,Arial,SimSun !default;
+
+/// 强调文字字体集
+$font-family-loud:              'Microsoft Yahei'                    !default;
+
+/// 较小文字大小
+$font-size-small:               10px                                 !default;
+/// 默认文字大小
+$font-size-base:                12px                                 !default;
+/// 默认文字大小
+$font-size-big:                 14px                                 !default;
+/// 较大文字大小
+$font-size-large:               16px                                 !default;
+
+/// 默认文字行高
+$line-height-base:              1.5                                  !default;
+/// 较大文字行高
+$line-height-large:             1.25                                 !default;
+/// 较小文字行高
+$line-height-small:             1.6                                  !default;
+
+
+// 颜色表
+// 颜色表用于定义一组颜色值，在项目中的用到的所有颜色都应该引用自该颜色表，而非自己直接指定色值。
+//
+// good:
+//   .box { color: $red; }
+//
+// bad:
+//   .box { color: #f00; }
+//
+// 另外，这些变量的名称是缺乏语义的，因此建议基于颜色表配置出一组语义更具体的变量进行使用，比如：
+//
+//   $primary-color: $green;
+//   $link-color:    $blue;
+//   $success:       $yellow;
+//   ...
+//
+// -----------------------------------------------------------------------------
+
+/// 灰色默认
+$grey-default:                   #f3f3f3                              !default;
+/// 深灰色
+$grey-darker:                   #1e1e1e                              !default;
+/// 暗灰色
+$grey-dark:                     #333                                 !default;
+/// 灰色
+$grey:                          #555                                 !default;
+/// 淡灰色
+$grey-light:                    #aaa                                 !default;
+/// 浅灰色
+$grey-lighter:                  #e9e9e9                              !default;
+/// 白色
+$white:                         #fff                                 !default;
+
+/// 红色
+$red:                           #ed1b23                              !default;
+/// 红色
+$red-default:                   #f65                              !default;
+/// 浅红色
+$red-light:                     #ffecec                              !default;
+/// 黄色调
+$yellow:                        #F9E610                              !default;
+/// 浅黄色
+$yellow-light:                  #fffee5                              !default;
+/// 橙色调
+$orange:                        #ec6800                              !default;
+/// 橙色调
+$orange-light:                  #f97218                              !default;
+/// 绿色调
+$green:                         #71ab00                              !default;
+/// 浅绿色
+$green-light:                   #dff0d8                              !default;
+/// 蓝色调
+$blue:                          #005AAA                              !default;
+/// 浅蓝色
+$blue-light:                    #0083f7                              !default;
+/// 默认蓝色
+$blue-default:                  #879baa                              !default;
+/// 浅蓝色
+$blue-lighter:                  #d9ebed                              !default;
+/// 深蓝色
+$blue-darker:                   #4f606d                              !default;
+/// 粉色
+$pink:                          #fd7a7f                              !default;
+///浅粉色
+$pink-light:                    #ffe1e2                              !default;
+
+// 项目配色
+// -----------------------------------------------------------------------------
+
+/// 主风格色
+$primary-color:                 $red                                 !default;
+
+/// 主风格背景色
+$primary-bg-color:              $white                               !default;
+
+/// 线条颜色，一般作为分割线，文本框，模块等控件的无状态时的边框颜色
+$line-color:                    #d3d3d3                              !default;
+
+/// 页面边框颜色
+$border-color:                  $grey-lighter                        !default;
+
+
+// 文本颜色
+// -----------------------------------------------------------------------------
+
+/// 默认文字颜色
+$font-color-base:               $grey-darker                         !default;
+/// 强调文本颜色
+$font-color-loud:               $grey-darker                         !default;
+/// 次要文本颜色
+$font-color-quiet:              $grey-light                          !default;
+
+/// 链接颜色
+$link-color:                    $font-color-base                     !default;
+/// 链接获取到焦点时的文字颜色
+$link-focus-color:              $link-color                          !default;
+/// 已访问的链接的文字颜色
+$link-visited-color:            $link-color                          !default;
+
+
+// 状态颜色
+// -----------------------------------------------------------------------------
+
+/// 成功状态
+$success-color:                 $green                               !default;
+$success-text:                  $success-color                       !default;
+$success-bg:                    $green-light                         !default;
+$success-border:                $success-color                       !default;
+
+/// 消息状态
+$info-color:                    $blue                                !default;
+$info-text:                     $info-color                          !default;
+$info-bg:                       $blue-light                          !default;
+$info-border:                   $info-color                          !default;
+
+/// 警告状态
+$warning-color:                 $yellow                              !default;
+$warning-text:                  $warning-color                       !default;
+$warning-bg:                    $yellow-light                        !default;
+$warning-border:                $warning-color                       !default;
+
+/// 错误状态
+$danger-color:                  $red                                 !default;
+$danger-text:                   $danger-color                        !default;
+$danger-bg:                     $red-light                           !default;
+$danger-border:                 $danger-color                        !default;
+
+// 商品相关颜色
+// -----------------------------------------------------------------------------
+$product-sales-price-color:     $red                                 !default;
+$product-market-price-color:    $grey-light                          !default;
+$goods-sales-price-color:       $red                                 !default;
+$goods-market-price-color:      $grey-light                          !default;
+
+// 购物车相关
+// -----------------------------------------------------------------------------
+$basket-unit-price-color:       $grey-darker                         !default;
+$basket-total-price-color:      $red                                 !default;
+$basket-quantity-color:         $grey-darker                         !default;
+$basket-weight-color:           $grey-light                          !default;
+$basket-operation-color:        $blue                                !default;
+$basket-principal-rule-bg-color:$yellow-light                        !default;
+
+$basket-select-width:           37px                                 !default;
+$basket-line-height:            18px                                 !default;
+$basket-title-height:           44px                                 !default;
+$basket-principal-rule-height:  36px                                 !default;
+$basket-item-image-size:        70px                                 !default;
+$basket-item-info-width:        370px                                !default;
+$basket-item-price-width:       80px                                 !default;
+$basket-item-quantity-width:    120px                                !default;
+$basket-item-weight-width:      100px                                !default;
+$basket-item-operation-width:   120px                                !default;
+$basket-item-height:            $basket-item-image-size + 2px        !default;
+$basket-item-line-height:       18px                                 !default;
+$basket-item-spinner-width:     70px                                 !default;
+$basket-item-spinner-height:    24px                                 !default;
+$basket-item-rule-line-height:  26px                                 !default;
+
+// 布局定义
+// -----------------------------------------------------------------------------
+
+// 宽布局的页面的宽度
+$wide-page-width:               1210px                               !default;
+
+// 窄布局的页面的宽度
+$narrow-page-width:             990px                                !default;
+
+/// 间距，空隙
+$content-spacing:               10px                                 !default;
+
+// 边框样式
+$border-property:               1px solid $border-color              !default;
+
+// 尺寸
+// -----------------------------------------------------------------------------
+
+/// 默认尺寸规格的名称
+$default-element-box-name:      m                                    !default;
+
+/// 尺寸规格集合，key 为尺寸规格的名称，value 为该规格的数据。
+///
+/// 每一个尺寸规格定义了一个 CSS 盒模型的相关数据，其中包括宽高，垂直/水平内边距，边框宽度，文字大小和行高，
+/// 以及一个额外提供的圆角大小：
+///
+/// - width: 宽度
+/// - height: 高度
+/// - padding-vertical: 垂直内边距
+/// - padding-horizontal: 水平内边距
+/// - border-width: 边框宽度
+/// - border-radius: 圆角大小
+/// - font-size: 文字大小
+/// - line-height: 行高
+///
+/// 以上所有数据都是可选的，不过一般考虑到通用性，不会指定宽高度，而其它的一般都会被指定。
+///
+/// 配置项中默认提供 5 个尺寸规则，其名称参照服装的尺码命名方式进行定义：
+/// - m: 普通尺寸
+/// - l: 较大尺寸
+/// - xl: 超大尺寸
+/// - s: 较小尺寸
+/// - xs: 超小尺寸
+$element-box-maps: (
+    m: (
+        padding-vertical: 6px,
+        padding-horizontal: 12px,
+        border-width: 1px,
+        font-size: $font-size-base,
+        line-height: $line-height-base
+    ),
+    l: (
+        padding-vertical: 10px,
+        padding-horizontal: 16px,
+        border-width: 1px,
+        font-size: $font-size-large,
+        line-height: $line-height-large
+    ),
+    s: (
+        padding-vertical: 4px,
+        padding-horizontal: 9px,
+        border-width: 1px,
+        font-size: $font-size-small,
+        line-height: $line-height-small
+    )
+);

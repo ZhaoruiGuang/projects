@@ -1,0 +1,17 @@
+<div class="switch-con init">
+    <template v-for="item in switchList">
+        <div class="switch-item" id="switch-item-{{$index}}"
+             v-bind:class="{
+                             'active': current === $index,
+                             'prev': (current === $index+1) || (current === 0 && $index === switchList.length-1),
+                             'next': (current === $index-1) || (current === switchList.length-1 && $index === 0),
+                             'moving': moving
+                         }"
+             v-on:touchstart="touchStart($event)"
+             v-on:touchmove="toucheMove($event)"
+             v-on:touchend="touchEnd($event)"
+             >
+
+        </div>
+    </template>
+</div>

@@ -1,0 +1,119 @@
+////
+/// 表单组件
+////
+
+
+// 表单内文本框
+// -----------------------------------------------------------------------------
+
+@mixin set-form-textbox-element-box-by-name($name) {
+
+}
+
+// 表单内文本框
+.form-textbox {
+    margin: 0;
+    outline: 0;
+    border: 1px solid #ddd;
+
+    &:focus {
+        border-color: #00A0E8;
+    }
+}
+
+// 文本框尺寸规则
+@each $name, $config in $element-box-maps {
+    .form-textbox-#{$name} {
+        @include element-box-by-name($name);
+    }
+}
+
+// 设置默认文本框尺寸规格
+.form-textbox {
+    @extend .form-textbox-#{$default-element-box-name};
+}
+
+// 文本框状态样式
+$form-textbox-status-styles: (
+    success: $success-border,
+    info: $info-border,
+    warning: $warning-border,
+    danger: $danger-border
+);
+
+@each $name, $color in $form-textbox-status-styles {
+    .form-textbox.#{$name} {
+        border-color: $color;
+    }
+}
+
+
+// 表单及表单项
+// -----------------------------------------------------------------------------
+
+.form,
+.form-item,
+.form-item-content {
+    display: block;
+    position: relative;
+    @include clearfix;
+}
+
+// 水平布局的表单
+.form-horizontal {
+    .form-item {
+        margin-bottom: $content-spacing;
+
+        &:last-child {
+            margin-bottom: 0;
+        }
+    }
+
+    @each $name, $config in $element-box-maps {
+        .form-item-#{$name} {
+            .form-textbox {
+                @include element-box-by-name($name);
+            }
+
+            .form-label {
+                @include element-box-by-name-b-ph($name);
+            }
+        }
+    }
+
+    .form-item-content {
+        float: left;
+    }
+
+    .form-label {
+        float: left;
+        text-align: right;
+        font-size: $font-size-base;
+        line-height: $line-height-base;
+        padding: 9px + 1px 0;  // 文本框的垂直内边距与上下边框高度
+    }
+
+    @each $name, $config in $element-box-maps {
+        .form-label-#{$name} {
+            @include element-box-by-name-b-ph($name);
+        }
+    }
+
+    .form-label {
+        @extend .form-label-#{$default-element-box-name};
+    }
+}
+
+.checkbox {
+    width: 15px;
+    height: 15px;
+    border: 1px solid $red;
+    cursor: pointer;
+
+    &.checked {
+        width: 17px;
+        height: 17px;
+        border: none;
+        background: url('./checkbox-checked.png') left top no-repeat;
+    }
+}
