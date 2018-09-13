@@ -12,6 +12,12 @@
     -（4）默认 vue 版本在 2.0 以上
     -（5）接受一个回调函数：dragCallBack，参数有：success、fail、reset
 - 使用示例
-    - <div class="codeWin" style="width:300px;height:40px;">
+    ```
+    <div class="codeWin" style="width:300px;height:40px;">
         <drag-verificate-code v-on:dragCallBack="cb"></drag-verificate-code>
-      </div>
+    </div>
+
+    ```
+- 效果图
+![截图](https://github.com/ZhaoruiGuang/projects/blob/all_images/drag_verificate_code/img1.png)
+![截图](https://github.com/ZhaoruiGuang/projects/blob/all_images/drag_verificate_code/img2.png)
