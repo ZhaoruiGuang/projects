@@ -1,26 +1,17 @@
-# all projects
-
-这里是我所有的学习项目，欢迎小伙伴们加入！
-
+# drag-verificate-code
 
 ### 项目说明
-- AI_readFace
-    - 人脸识别与对比
-    - 百度 AI 人脸识别接口
-- react_antd
-	- 后台管理系统
-    - gulp@3.9.1
-    - webpack@2.7.0
-    - react@15.0.0
-    - ant Design
-- vue_share
-    - 分享组件
-    - vue（1.x 或 2.x 均可）
-    - 新浪微博、qq空间、微信朋友圈
-- node_demo
-    - 前后端彻底分离尝试项目
-    - node 启动静态服务器，前台页面的渲染控制、前台页面的请求代理
-    - webpack + gulp + vue 的前台页面开发架构
-- vue2_datePicker
-    - 日历组件
-    - vue@2.0.0 + 
+- 组件功能
+    - 拖动验证码
+- 使用方式
+	- 从开始位置，拖动光标到最后，即验证通过（非拼图）
+- 注意事项
+    -（1）使用时给组件一个宽高固定的父级盒子，因为组件是百分比自适应宽高的
+    -（2）默认支持 ES6 
+    -（3）默认支持 CSS3 
+    -（4）默认 vue 版本在 2.0 以上
+    -（5）接受一个回调函数：dragCallBack，参数有：success、fail、reset
+- 使用示例
+    - <div class="codeWin" style="width:300px;height:40px;">
+        <drag-verificate-code v-on:dragCallBack="cb"></drag-verificate-code>
+      </div>
