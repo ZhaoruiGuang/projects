@@ -21,3 +21,5 @@
 - 效果图
 ![截图](https://github.com/ZhaoruiGuang/projects/blob/all_images/drag_verificate_code/img1.png)
 ![截图](https://github.com/ZhaoruiGuang/projects/blob/all_images/drag_verificate_code/img2.png)
+- npm 下载
+    - 本组件已经发布到 NPM 官网，您也可以通过 npm/cnpm install --save-dev drag-verificate-code 直接下载使用
