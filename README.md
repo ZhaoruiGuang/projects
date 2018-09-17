@@ -29,7 +29,7 @@
     - 日历组件
     - vue@2.0.0 + 
 
-- vue2_drag_verificate_code
+- vue2-drag-code
     - 拖动验证码（非拼图类）
     - vue@2.0.0 + 
 
