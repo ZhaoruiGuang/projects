@@ -1,0 +1,13 @@
+{
+  "name": "vue2-drag-code",
+  "version": "1.0.4",
+  "private": false,
+  "main": "index.js",
+  "description": "this is a drag verificate code component",
+  "keywords": [
+    "vue2","drag","dragCode","drag-code","vue2-drag-code","vue2DragCode"
+  ],
+  "author": "zhaoruiguang",
+  "email": "940139936@qq.com",
+  "license": "ISC"
+}

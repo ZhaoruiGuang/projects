@@ -1,16 +1,3 @@
-<!-- 
-    组件功能：拖动验证码
-    使用方式：从开始位置，拖动光标到最后，即验证通过（非拼图）
-    注意事项：（1）使用时给组件一个宽高固定的父级盒子，因为组件是百分比自适应宽高的
-              （2）默认支持 ES6 
-              （3）默认支持 CSS3 
-              （4）默认 vue 版本在 2.0 以上
-              （5）接受一个回调函数：dragCallBack，参数有：success、fail、reset
-              例：
-                <div class="codeWin" style="width:300px;height:40px;">
-                    <drag-verificate-code v-on:dragCallBack="cb"></drag-verificate-code>
-                </div>
- -->
 <template>
     <div id="drag_verificate_code_content">
         <p class="checkTip">向右拖动滑块完成验证</p>
@@ -23,7 +10,7 @@
 </template>
 <script type="text/javascript">
     export default {
-        name:'drag-verificate-code',
+        name:'dragCode',
         data() {
             return {
                 isClick:false,
@@ -73,8 +60,9 @@
                      if(Math.abs(_this.gapX) < _this.minMove){
                         _this.dragActiveContentWidth = '40px';
                         _this.dragActiveContentBgc = '#D0E9FC';
-                        _this.$emit('dragCallBack','fail');
-
+                        if(_this.dragPointActive && _this.gapX > 0){
+                            _this.$emit('dragCallBack','fail');
+                        }
                     }else{
                         _this.dragActiveContentWidth = '100%';
                         _this.dragActiveContentBgc = '#D1F5EE';
@@ -110,7 +98,7 @@
         },
      }
 </script>
-<style type="text/css">
+<style type="text/css" scoped>
     #drag_verificate_code_content{
         width: 100%;
         height: 100%;
