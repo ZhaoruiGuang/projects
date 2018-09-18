@@ -1,0 +1,13 @@
+{
+  "name": "@zhaoruiguang/vue2-calendar",
+  "version": "1.0.0",
+  "private": false,
+  "main": "index.js",
+  "description": "this is a vue2 calendar component",
+  "keywords": [
+    "vue2","calendar","vue2-calendar","vue2calendar","vuecalendar","vue-calendar","vue"
+  ],
+  "author": "zhaoruiguang",
+  "email": "940139936@qq.com",
+  "license": "ISC"
+}
