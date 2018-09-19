@@ -1,11 +1,11 @@
 {
-  "name": "@zhaoruiguang/vue2-calendar",
-  "version": "1.0.0",
+  "name": "vue2-share",
+  "version": "1.0.2",
   "private": false,
   "main": "index.js",
-  "description": "this is a vue2 calendar component",
+  "description": "this is a vue component that can let you to share what you want to share,include sina,qzon and weChat",
   "keywords": [
-    "vue2","calendar","vue2-calendar","vue2calendar","vuecalendar","vue-calendar","vue"
+    "share","vue2-share","vue2Share","vue-share","vueShare"
   ],
   "author": "zhaoruiguang",
   "email": "940139936@qq.com",

@@ -1,2 +1,2 @@
-import calendar from './calendar.vue';
-export default calendar;
+import share from './share.vue';
+export default share;

@@ -1,60 +1,72 @@
-# @zhaoruiguang/vue2-calendar
+# vue2-share
 
 ### 项目说明
 - 组件功能
-    - 日期选择控件
+    - 一键分享组件（包括新浪微博、QQ空间、微信二维码等）
 
 - 注意事项
-    - 组件本身设置相对定位（relative）属性，如不想影响页面文档样式，可给组件包一个父级盒子，并给父级盒子设置绝对定位（absolute）属性
+    - 本组件只包含三个第三方图标按钮，不包含外层触发组件显示的分享图标
     - 默认支持 ES6 
     - 默认支持 CSS3 
     - 默认 vue 版本在 2.0 以上
-    - 接受三个参数：
-        - calendarCommit：回调函数，点击日历"确定"按钮时触发
-        - calendarClose： 回调函数，点击日历"取消"或"清空"按钮时触发
-        - calendarFormat：字符串类型参数，日历格式，值为"yy-mm-dd"或"yy-mm-dd hh:mm:ss",默认值"yy-mm-dd"
+    - 参数说明
+        - shareType： 分享类型，数组，默认 ['sina','qzon','wx']
+        - shareTitle：分享标题，字符串或数字，默认为空
+        - shareUrl：  分享链接，字符串，默认 http://www.zhaoruiguang.cn
+        - shareImg：  分享配图src地址，字符串，默认为空
+        - shareDirection：组件展示形式（横向transverse或竖向vertical），字符串，默认横向（transverse）
+        - shareCodeInterface：微信二维码生成接口，字符串，默认 http://qr.liantu.com/api.php （第三方联图网）
 
 - 使用示例
     ```
     - demo.vue
     
     <template>
-        <calendar v-if="calendarState" 
-                      v-on:calendarCommit="calendarCommit" 
-                      v-on:calendarClose="calendarClose"
-                      v-bind:calendarFormat="calendarFormat"
-        ></calendar>
+        <span class="shareIcon"  v-on:mouseenter="shareState(true)"  v-on:mouseleave="shareState(false)">
+            <share v-if="state" :shareType="shareType" :shareDirection="shareDirection"></share>
+        </span>
     </template>
     <script>
-        import calendar from '@zhaoruiguang/vue2-calendar';
-        export default{
-            components:{
-                calendar,
+        import share from 'vue2-share';
+        export default {
+            components: {
+                share
             },
             data(){
                 return {
-                    calendarState:false,
-                    calendarFormat:"yy-mm-dd hh:mm:ss",
+                    state:false,
+                    shareType:['sina','qzon','wx'],
+                    shareDirection:'transverse', 
                 }
             },
             methods:{
-                calendarCommit(date){                   // 选中日期回调
-                    console.log(date)
-                },
-                calendarClose(){                        // 关闭日历操作：清空、取消、点击日历以外任意区域
-                    this.calendarState = false;
+                shareState(bl){
+                    this.state = bl;
                 }
-            },
+            }
         }
     </script>
+    <style type="text/css">
+        .shareIcon{
+            display:inline-block;
+            min-width:16px;
+            min-height:13px;
+            position:absolute;
+            top:100px;
+            left:100px;
+            background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAANCAMAAACXZR4WAAAAUVBMVEUAAAD39/f4+Ph2dnZmZmZ3d3dsbGxpaWlnZ2eAgIB5eXmYmJiDg4Ourq5qampjY2OPj49gYGBsbGxlZWWCgoKHh4dzc3O1tbWnp6eTk5N6enpNjNvrAAAADnRSTlMABgT8/PDwz8ixeG08OLYDh+cAAABgSURBVAjXXY5XEsAgCAWJ6Q0iqCn3P2hiizPuD7DzBoBCAypUQkRGLx6I4k+0sdVxvM0iRFkoKx1NnxiTYNKD2URyYnen73qXd6wQmCGJwlULrIWEx8yRseEKM2OCGeAFzzUE1+1DPK4AAAAASUVORK5CYII=');
+            background-repeat: no-repeat;
+            padding-top:20px;
+        }
+    </style>
     
     ```
 - 效果图
-![截图](https://github.com/ZhaoruiGuang/projects/blob/all_images/vue2_calendar/img1.png)
-![截图](https://github.com/ZhaoruiGuang/projects/blob/all_images/vue2_calendar/img2.png)
+![截图](https://github.com/ZhaoruiGuang/projects/blob/all_images/vue2_share/img1.png)
+![截图](https://github.com/ZhaoruiGuang/projects/blob/all_images/vue2_share/img2.png)
 
 - NPM 安装
-    - npm/cnpm install --save-dev @zhaoruiguang/vue2-calendar
+    - npm/cnpm  install  --save-dev  vue2-share
     
 - GitHub 地址
     - https://github.com/ZhaoruiGuang
