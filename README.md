@@ -39,8 +39,8 @@
     
     ```
 - 效果图
-![截图](https://github.com/ZhaoruiGuang/projects/blob/all_images/drag_verificate_code/img1.png)
-![截图](https://github.com/ZhaoruiGuang/projects/blob/all_images/drag_verificate_code/img2.png)
+![截图](https://github.com/ZhaoruiGuang/projects/blob/all_images/vue2_drag_code/img1.png)
+![截图](https://github.com/ZhaoruiGuang/projects/blob/all_images/vue2_drag_code/img2.png)
 
 - NPM 安装
     - npm/cnpm install --save-dev vue2-drag-code
