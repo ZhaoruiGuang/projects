@@ -1,45 +1,71 @@
-# all projects
+# vue-weather
 
-这里是我所有的学习项目，欢迎小伙伴们加入！
+### 项目说明
+- 组件功能
+    - 一个基于 vue.js 实现的漂亮易用的天气控件
 
+- 注意事项
+    - 本组件默认大小为： 400px * 700px ，实际使用中可以对整个组件使用：transform:scale(0.7) 来控制大小；
+	- 本组件在 weather.vue 文件中在线引用了百度CDN的jQuery文件，实际开发中可根据需要决定是否引用，可自行更改源码；
+    - 默认支持 ES6 ；
+    - 默认支持 CSS3 ；
+    - 默认 vue 版本在 2.0 以上。
 
-### 项目说明（每个分支为一个项目）
-- AI_readFace
-    - 人脸识别与对比
-    - 百度 AI 人脸识别接口
+- 使用示例
+    ```
+    - demo.vue
+    
+    <template>
+		<div style="width:400px;height:700px;margin:50px;">
+			<weather></weather>
+		</div>
+    </template>
+    <script>
+        import weather from 'vue-weather';
+        export default {
+            components: {
+                weather,
+            }
+        }
+    </script>
+	
+	- webpack.config.js（这里只标明组件使用相关的必要配置）
+	
+	module.exports = {
+	    entry: '',
+	    output: '',
+	    module: {
+	        rules: [
+				{
+					test: /\.(woff|woff2|eot|ttf|otf)$/,
+					use: [{
+						loader:'file-loader',
+						options: {
+							name:'[name].[ext]',
+							limit:5000,
+						}
+					}]
+				}
+	        ]
+	    },
+	    resolve: {},
+	    devServer: {},
+	};
+	
+    ```
+- 效果图
+![截图](http://106.12.9.152:8008/vue_weather/img1.png)
+![截图](http://106.12.9.152:8008/vue_weather/img2.png)
+![截图](http://106.12.9.152:8008/vue_weather/img3.png)
 
-- react_antd
-	- 后台管理系统
-    - gulp@3.9.1
-    - webpack@2.7.0
-    - react@15.0.0
-    - ant Design
-
-- vue_share
-    - 分享组件
-    - vue（1.x 或 2.x 均可）
-    - 新浪微博、qq空间、微信朋友圈
-
-- node_demo
-    - 前后端彻底分离尝试项目
-    - node 启动静态服务器，前台页面的渲染控制、前台页面的请求代理
-    - webpack + gulp + vue 的前台页面开发架构
-
-- vue2_datePicker
-    - 日历组件
-    - vue@2.0.0 + 
-
-- vue2-drag-code
-    - 拖动验证码（非拼图类）
-    - vue@2.0.0 + 
-
-
+- NPM 安装
+    - npm/cnpm  install  --save-dev  vue-weather
+	
+    
 ### 结尾
 
-人生艰难，撸码不易，您的支持是作者坚持下去的最大动力。
+欢迎大家查看指导
 
-如果这些项目给您带来了一点便利或帮助，请留个star鼓励一下哟~~~❤️❤️❤️❤️❤️❤️
+若有问题，可加微信15032361123（同为手机号）与我交流
 
-如有问题，可加微信15032361123（同为手机号）与作者交流
-
-
+如果对你有帮助，给个star哟~~❤️❤️❤️❤️
