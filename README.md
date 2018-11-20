@@ -50,8 +50,8 @@
     
     ```
 - 效果图
-![截图](https://github.com/ZhaoruiGuang/projects/blob/all_images/vue2_calendar/img1.png)
-![截图](https://github.com/ZhaoruiGuang/projects/blob/all_images/vue2_calendar/img2.png)
+![截图](http://106.12.9.152:8008/vue2_calendar/img1.png)
+![截图](http://106.12.9.152:8008/vue2_calendar/img2.png)
 
 - NPM 安装
     - npm/cnpm install --save-dev @zhaoruiguang/vue2-calendar
