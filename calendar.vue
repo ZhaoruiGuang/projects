@@ -38,13 +38,13 @@
         <div class="Date-box" id="Date-box" v-on:click="stopPro($event)">
             <div class="Date-top" id="Date-top">
                 <ul class="Date-year Date-top-ul">
-                    <li class="cursor Date-top-ul-li1" v-on:click.stop="reduceYear">&lt;</li>
-                    <li class="Date-top-ul-li2"><span>{{year}}</span>年</li>
+                    <li class="cursor Date-top-ul-li1" v-on:click.stop="reduceYear">&lt;</li>&nbsp;&nbsp;
+                    <li class="Date-top-ul-li2"><span>{{year}}</span>&nbsp;年</li>&nbsp;&nbsp;
                     <li class="cursor Date-top-ul-li3" v-on:click.stop="addYear">&gt;</li>
                 </ul>
                 <ul class="Date-month Date-top-ul">
-                    <li class="cursor Date-top-ul-li1" v-on:click.stop="reduceMonth">&lt;</li>
-                    <li class="month  Date-top-ul-li2"><span>{{month}}</span>月</li>
+                    <li class="cursor Date-top-ul-li1" v-on:click.stop="reduceMonth">&lt;</li>&nbsp;&nbsp;
+                    <li class="Date-top-ul-li2"><span>{{month}}</span>&nbsp;月</li>&nbsp;&nbsp;
                     <li class="cursor Date-top-ul-li3" v-on:click.stop="addMonth">&gt;</li>
                 </ul>
             </div>
@@ -92,14 +92,14 @@
                         </td>
                     </tr>
                 </table>
-                <div class="hoursWin" v-if="calendarFormat == 'yy-mm-dd hh:mm:ss' ">
-                    <input class="timeText" type="text" v-model="hour"  maxlength="2">时
-                    <input class="timeText" type="text" v-model="minute" maxlength="2">分
-                    <input class="timeText" type="text" v-model="second" maxlength="2">秒
-                </div>
                 <div class="submit">
+										<div class="hoursWin" v-if="calendarFormat == 'yy-mm-dd hh:mm:ss' ">
+											<input class="timeText" type="text" v-model="hour"  maxlength="2">&nbsp;:
+											<input class="timeText" type="text" v-model="minute" maxlength="2">&nbsp;:
+											<input class="timeText" type="text" v-model="second" maxlength="2">
+										</div>
                     <span class="button" v-on:click="submitDate(true)">确定</span>
-                    <span class="button clean" v-on:click="submitDate(false)">清空</span>
+                    <span class="button clean" v-on:click="submitDate(false)" v-if="isAbleClean">清空</span>
                     <span class="button cancle" v-on:click="dateCancle">取消</span>
                 </div>
             </div>
@@ -137,7 +137,11 @@
             'calendarFormat':{
                 type:String,
                 default:'yy-mm-dd',     // yy-mm-dd hh:mm:ss
-            }
+            },
+						'isAbleClean':{
+							type:Boolean,
+							default:true,
+						}
         },
         methods: {
             reduceYear(){
@@ -148,7 +152,8 @@
             },
             reduceMonth(){
                 if(this.month<=1){
-                    this.month = 1;
+                    this.month = 12;
+										this.reduceYear();
                 }else{
                     this.month -= 1;
                 }
@@ -157,7 +162,8 @@
                 if(this.month<12){
                     this.month += 1;
                 }else{
-                    this.month = 12;
+                    this.month = 1;
+										this.addYear();
                 }
             },
             choise(e){
@@ -414,7 +420,7 @@
         -o-box-sizing: border-box;
         -moz-box-sizing: border-box;
         -ms-box-sizing: border-box;
-        width:210px;
+        width:300px;
         height:auto;
         background-color:#fff;
         position:absolute;
@@ -441,11 +447,11 @@
         -ms-box-sizing: border-box;
     }
     .Date-year{
-        width:100px;
-        margin-left:12px;
+        width:120px;
+        margin-left:40px;
     }
     .Date-month{
-        width:95px;
+        width:120px;
         padding-left:6px;
     }
     .Date-top-ul li{
@@ -461,13 +467,6 @@
         height: 22px;
         font-size:18px;
     }
-    .month{
-        display:inline-block;
-        width:27px;
-    }
-    #Date-bottom{
-        border:1px solid #CECECE;
-    }
     #Date-bottom .week{
         width:100%;
         height:20px;
@@ -475,13 +474,14 @@
         margin-bottom:5px;
     }
     #Date-bottom ul{
-        width:203px;
+        width:100%;
         height:20px;
         margin: 0 auto;
+				padding:0 1%;
     }
     #Date-bottom ul li{
         float:left;
-        width:29px;
+        width:14%;
         height:20px;
         line-height:20px;
         color:#1fa67a;
@@ -493,7 +493,7 @@
         -o-box-sizing: border-box;
         -moz-box-sizing: border-box;
         -ms-box-sizing: border-box;
-        width:203px;
+        width:100%;
         margin:0 auto;
         border-collapse:collapse;
     }
@@ -502,7 +502,7 @@
         height:30px;
     }
     #Date-bottom table tr td{
-        width:29px;
+        width:14%;
         height:30px;
         border:none;
     }
@@ -512,13 +512,13 @@
         -o-box-sizing: border-box;
         -moz-box-sizing: border-box;
         -ms-box-sizing: border-box;
-        display: inline-block;
-        width:29px;
+        display: block;
+        width:90%;
         height:30px;
         line-height:30px;
         text-align:center;
         border:none;
-        margin:0;
+        margin:0 auto;
         background-color:#fff;
         color:#1fa67a;
     }
@@ -531,16 +531,18 @@
         border-radius:3px;
     }
     #Date-bottom .hoursWin{
-        margin:5px 0;
-        padding: 5px 0;
-        border-top: 1px solid #CECECE;
-        border-bottom: 1px solid #CECECE;
+				float: left;
+				padding-left: 10px;
+				margin-top: -2px;
     }
     #Date-bottom .hoursWin .timeText{
         display: inline-block;
-        width: 36px;
-        height: 16px;
-        padding-left: 5px;
+				/* float: left; */
+        width: 32px;
+        height: 20px;
+        text-align: center;
+				border: 1px solid #e3e8ee;
+				border-radius: 2px;
     }
     #Date-bottom .submit{
         width:100%;
@@ -560,6 +562,7 @@
         border-radius:3px;
         cursor:pointer;
         margin-top:6px;
+				text-align: center;
     }
     #Date-bottom .submit .clean{
         background-color: #ff6655;
