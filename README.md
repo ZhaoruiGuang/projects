@@ -69,4 +69,4 @@
     - npm/cnpm  install  --save-dev  vue2-share
     
 - GitHub 地址
-    - https://github.com/ZhaoruiGuang
+    - https://github.com/ZhaoruiGuang/projects/tree/vue2-share
