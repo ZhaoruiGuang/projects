@@ -1,6 +1,6 @@
 {
   "name": "vue2-share",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "private": false,
   "main": "index.js",
   "description": "this is a vue component that can let you to share what you want to share,include sina,qzon and weChat",
