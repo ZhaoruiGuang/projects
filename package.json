@@ -1,6 +1,6 @@
 {
   "name": "@zhaoruiguang/vue2-calendar",
-  "version": "1.0.0",
+  "version": "1.0.6",
   "private": false,
   "main": "index.js",
   "description": "this is a vue2 calendar component",

@@ -51,11 +51,11 @@
     
     ```
 - 效果图
-![截图](http://106.12.9.152:8008/vue2_calendar/img1.png)
-![截图](http://106.12.9.152:8008/vue2_calendar/img2.png)
+![截图](https://p3.ssl.qhimg.com/t0109644c553cfa7d99.png)
+![截图](https://p4.ssl.qhimg.com/t01c45cd7a65a1fb820.png)
 
 - NPM 安装
     - npm/cnpm install --save-dev @zhaoruiguang/vue2-calendar
     
 - GitHub 地址
-    - https://github.com/ZhaoruiGuang
+    - https://github.com/ZhaoruiGuang/projects/tree/vue2-calendar
