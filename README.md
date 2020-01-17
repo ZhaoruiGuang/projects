@@ -62,8 +62,8 @@
     
     ```
 - 效果图
-![截图](http://106.12.9.152:8008/vue2_share/img1.png)
-![截图](http://106.12.9.152:8008/vue2_share/img2.png)
+![截图](https://p4.ssl.qhimg.com/t01d039ffd9e3531d07.png)
+![截图](https://p2.ssl.qhimg.com/t01f7333005068f251e.png)
 
 - NPM 安装
     - npm/cnpm  install  --save-dev  vue2-share
