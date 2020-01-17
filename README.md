@@ -39,9 +39,12 @@
     
     ```
 - 效果图
-![截图](http://106.12.9.152:8008/vue2_drag_code/img1.png)
-![截图](http://106.12.9.152:8008/vue2_drag_code/img2.png)
+![截图](https://p1.ssl.qhimg.com/t01ae99bf42d552cd94.png)
+![截图](https://p5.ssl.qhimg.com/t012a2aad787d436eed.png)
 
 - NPM 安装
     - npm/cnpm install --save-dev vue2-drag-code
+
+- GitHub 地址
+    - https://github.com/ZhaoruiGuang/projects/tree/vue2-drag-code
 
