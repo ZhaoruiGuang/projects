@@ -54,18 +54,12 @@
 	
     ```
 - 效果图
-![截图](http://106.12.9.152:8008/vue_weather/img1.png)
-![截图](http://106.12.9.152:8008/vue_weather/img2.png)
-![截图](http://106.12.9.152:8008/vue_weather/img3.png)
+![截图](https://p1.ssl.qhimg.com/t01ab05e690021b8347.png)
+![截图](https://p3.ssl.qhimg.com/t01edb230cd961d2830.png)
+![截图](https://p0.ssl.qhimg.com/t018fff349419ae3d74.png)
 
 - NPM 安装
     - npm/cnpm  install  --save-dev  vue-weather
 	
-    
-### 结尾
-
-欢迎大家查看指导
-
-若有问题，可加微信15032361123（同为手机号）与我交流
-
-如果对你有帮助，给个star哟~~❤️❤️❤️❤️
+- GitHub 地址
+    - https://github.com/ZhaoruiGuang/projects/tree/vue-weather
