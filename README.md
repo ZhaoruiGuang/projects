@@ -12,7 +12,7 @@
     - 参数说明
         - shareType： 分享类型，数组，默认 ['sina','qzon','wx']
         - shareTitle：分享标题，字符串或数字，默认为空
-        - shareUrl：  分享链接，字符串，默认 http://www.zhaoruiguang.cn
+        - shareUrl：  分享链接，字符串，默认 https://cn.vuejs.org/
         - shareImg：  分享配图src地址，字符串，默认为空
         - shareDirection：组件展示形式（横向transverse或竖向vertical），字符串，默认横向（transverse）
         - shareCodeInterface：微信二维码生成接口，字符串，默认 http://qr.liantu.com/api.php （第三方联图网）

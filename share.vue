@@ -21,7 +21,7 @@
         	},
         	shareUrl:{                      // 分享链接
         		type:String,
-        		default:'http://www.zhaoruiguang.cn/',
+        		default:'https://cn.vuejs.org/',
         	},
             shareImg:{                      // 分享配图      
                 type:String,
