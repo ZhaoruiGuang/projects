@@ -14,7 +14,7 @@
         - calendarCommit：回调函数，点击日历"确定"按钮时触发
         - calendarClose： 回调函数，点击日历"取消"或"清空"按钮时触发
         - calendarFormat：字符串类型参数，日历格式，值为"yy-mm-dd"或"yy-mm-dd hh:mm:ss",默认值"yy-mm-dd"
-				- isAbleClean：		布尔类型参数，是否显示日历的 ‘清空’按钮，默认显示
+				- isAbleClean：布尔类型参数，是否显示日历的 ‘清空’按钮，默认显示
 
 - 使用示例
     ```
