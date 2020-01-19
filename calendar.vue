@@ -533,16 +533,17 @@
     #Date-bottom .hoursWin{
 				float: left;
 				padding-left: 10px;
-				margin-top: -2px;
+				margin-top: 6px;
     }
     #Date-bottom .hoursWin .timeText{
         display: inline-block;
-				/* float: left; */
+				outline: none;
         width: 32px;
-        height: 20px;
+        height: 22px;
         text-align: center;
 				border: 1px solid #e3e8ee;
 				border-radius: 2px;
+				box-sizing: border-box;
     }
     #Date-bottom .submit{
         width:100%;
