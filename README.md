@@ -42,6 +42,7 @@
 	
     ```
 - 效果图（分别为标签模式和卡片模式）
+
 ![截图](https://p0.ssl.qhimg.com/t01dd1348ebc81f78e9.png)
 ![截图](https://p3.ssl.qhimg.com/t0153ae433e5d13a3b7.png)
 
