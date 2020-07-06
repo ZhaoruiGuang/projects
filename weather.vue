@@ -37,7 +37,7 @@ export default {
 	props:{
 		mode:{
 			type:String,
-			default:'card',		// 两种模式：tag 标签模式；card 卡片模式；默认标签模式
+			default:'card',		// 两种模式：tag 标签模式；card 卡片模式；默认卡片模式
 		},
 		showBgImg:{				// 是否显示背景图（主要是 标签模式 下可能不需要显示背景图）
 			type:Boolean,
