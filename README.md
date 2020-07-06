@@ -4,9 +4,11 @@
 - 组件功能
     - 一个基于 vue.js 实现的漂亮易用的天气控件
 
+- 更新说明
+	- 本组件在 2020-07-06 进行改版，UI界面更加美观，天气内容更加精简准确
+
 - 注意事项
-    - 本组件默认大小为： 400px * 700px ，实际使用中可以对整个组件使用：transform:scale(0.7) 来控制大小；
-	- 本组件在 weather.vue 文件中在线引用了百度CDN的jQuery文件，实际开发中可根据需要决定是否引用，可自行更改源码；
+    - 本组件分为 tag（标签）模式和 card（卡片）模式；
     - 默认支持 ES6 ；
     - 默认支持 CSS3 ；
     - 默认 vue 版本在 2.0 以上。
@@ -15,48 +17,33 @@
     ```
     - demo.vue
     
-    <template>
-		<div style="width:400px;height:700px;margin:50px;">
-			<weather></weather>
-		</div>
-    </template>
-    <script>
-        import weather from 'vue-weather';
-        export default {
-            components: {
-                weather,
-            }
-        }
-    </script>
-	
-	- webpack.config.js（这里只标明组件使用相关的必要配置）
-	
-	module.exports = {
-	    entry: '',
-	    output: '',
-	    module: {
-	        rules: [
-				{
-					test: /\.(woff|woff2|eot|ttf|otf)$/,
-					use: [{
-						loader:'file-loader',
-						options: {
-							name:'[name].[ext]',
-							limit:5000,
-						}
-					}]
+   <template>
+		<span>
+			<weather mode="card" showBgImg="showBgImg" v-on:weatherSuccess="weatherSuccess" v-on:weatherError="weatherError"></weather>
+		</span>
+   </template>
+   
+   <script>
+		import weather from 'vue-weather';
+		export default {
+			components: {
+				weather,
+			},
+			methods:{
+				weatherSuccess(){
+					console.log('get weather success')
+				},
+				weatherError(){
+					console.log('get weather error')
 				}
-	        ]
-	    },
-	    resolve: {},
-	    devServer: {},
-	};
+			}
+		}
+   </script>
 	
     ```
-- 效果图
-![截图](https://p1.ssl.qhimg.com/t01ab05e690021b8347.png)
-![截图](https://p3.ssl.qhimg.com/t01edb230cd961d2830.png)
-![截图](https://p0.ssl.qhimg.com/t018fff349419ae3d74.png)
+- 效果图（分别为标签模式和卡片模式）
+![截图](https://p0.ssl.qhimg.com/t01dd1348ebc81f78e9.png)
+![截图](https://p3.ssl.qhimg.com/t0153ae433e5d13a3b7.png)
 
 - NPM 安装
     - npm/cnpm  install  --save-dev  vue-weather
