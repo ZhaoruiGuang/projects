@@ -1,6 +1,6 @@
 {
   "name": "vue-weather",
-  "version": "2.0.1",
+  "version": "2.0.2",
   "private": false,
   "main": "index.js",
   "description": "This is a weather module written in Vue",

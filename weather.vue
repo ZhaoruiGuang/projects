@@ -8,14 +8,14 @@
 			<div class="temperature">{{ weatherData.temperature }}<template v-if="mode == 'tag'">°C</template> </div>
 			<div class="quality">
 				<span :class="weatherData.qualityStatus.class">{{ weatherData.qualityStatus.number }}&nbsp;{{ weatherData.qualityStatus.name }}</span>
-				<span :class="weatherData.degreeStatus.class" v-if="weatherData.degreeStatus.name">{{ weatherData.degreeStatus.name }}</span>
+				<span :class="weatherData.alarmStatus.class" v-if="weatherData.alarmStatus.type">{{ weatherData.alarmStatus.name }}</span>
 			</div>
 			<div class="parameters">
 				<template v-if="!loading">
 					<span class="weather" :class="weatherData.weatherType">{{ weatherData.weatherName }}</span>
 					<template v-if="mode != 'tag' ">
-						<span class="wind">{{ weatherData.windDir }}&nbsp;{{ weatherData.windLevel }} 级</span>
-						<span class="humidity">湿度{{ weatherData.humidity }}%</span>
+						<span class="wind">{{ weatherData.windDir }}&nbsp;{{ weatherData.windLevel }}</span>
+						<span class="humidity">湿度{{ weatherData.humidity }}</span>
 					</template>
 				</template>
 				<template  v-else>
@@ -50,22 +50,21 @@ export default {
 				weatherName: '',
 				weatherType: 'weatherType_0', // 天气状态（设置不同大背景图）
 
-				city: '正在定位', // 位置
-				temperature: '--', // 温度
-				qualityStatus: {
-					// 空气质量
-					number: 0, // 污染值
+				city: '正在定位', 		// 位置
+				temperature: '--', 		// 温度
+				qualityStatus: {		// 空气质量
+					number: 0, 
 					class: 'qualityType_0',
 					name: '优'
 				},
-				degreeStatus: {
-					// 温度状态
-					class: 'degreeType_0',
+				alarmStatus: {			// 天气预警
+					type:'',
+					class: '',
 					name: ''
 				},
-				windDir: '', // 风向
-				windLevel: '', // 风级别
-				humidity: '' // 湿度
+				windDir: '', 			// 风向
+				windLevel: '', 			// 风级别
+				humidity: ''		 	// 湿度
 			},
 			loading: true,
 			noData: false
@@ -80,23 +79,25 @@ export default {
 				callbackQuery: 'callback',
 				callbackName: 'weather_cb'
 			};
-			this.$jsonp('https://elephant.browser.360.cn/?t=sapp-newtab&m=moji', params, 3000)
+			// https://www.tianqiapi.com/index/doc?version=v61  天气 api 文档
+			this.$jsonp('https://yiketianqi.com/api?version=v61&appid=93861958&appsecret=5z9XA6lO', params, 3000)
 				.then(res => {
+					console.log(res)
 					this.loading = false;
-					if (res && res.errno === '20000') {
-						this.noData = false;
-						const { aqi, city, condition, alert } = res.data;
+					if (res&&res.cityid) {
+						const { aqi, city,tem, wea,wea_img,win,win_speed,humidity,alarm } = res;
 						Object.assign(this.weatherData, {
-							weatherType: this.setWeatherType(condition.conditionId),
-							city: city.name,
-							temperature: condition.temp,
-							weatherName: condition.condition,
-							degreeStatus: (alert && this.setDegreeType(alert[0].name)) || {},
-							qualityStatus: this.setQualityType(aqi.value),
-							windDir: condition.windDir,
-							windLevel: condition.windLevel,
-							humidity: condition.humidity
+							weatherType: this.setWeatherType(wea_img),
+							city: city,
+							temperature: tem,
+							weatherName: wea,
+							alarmStatus: this.setAlarmType(alarm),	// 预警
+							qualityStatus: this.setQualityType(aqi),
+							windDir: win,
+							windLevel: win_speed,
+							humidity: humidity
 						});
+						this.noData = false;
 						this.$emit('weatherSuccess');
 					} else {
 						this.noData = true;
@@ -110,106 +111,28 @@ export default {
 				});
 		},
 		// 设置天气状态
-		setWeatherType(id) {
-			switch (id) {
-				case '1': //晴 少云 大部晴朗
-				case '2':
-				case '3':
-				case '4':
-				case '5':
-				case '6':
-				case '7':
-				case '12':
+		setWeatherType(type) {
+			switch (type) {
+				case 'qing': //晴 少云 大部晴朗
 					return 'weatherType_1';
-				case '8': //多云 阴
-				case '9':
-				case '10':
-				case '11':
-				case '13':
-				case '14':
-				case '80':
-				case '81':
-				case '82':
-				case '85':
+				case 'yin': //多云 阴
+				case 'yun':
 					return 'weatherType_2';
-				case '37': //雷阵雨 雷阵雨伴有冰雹
-				case '38':
-				case '39':
-				case '40':
-				case '41':
-				case '44':
-				case '45':
-				case '87':
-				case '88':
-				case '89':
-				case '90':
+				case 'lei': //雷 雷阵雨 
 					return 'weatherType_3';
-				case '26': //雾 霾
-				case '27':
-				case '34':
-				case '35':
-				case '79':
-				case '83':
-				case '84':
+				case 'wu': //雾 霾
 					return 'weatherType_4';
-				case '15': //阵雨 局部阵雨 小阵雨 中雨 小到中雨 中到大雨
-				case '16':
-				case '17':
-				case '18':
-				case '19':
-				case '20':
-				case '21':
-				case '22':
-				case '51':
-				case '52':
-				case '53':
-				case '66':
-				case '67':
-				case '78':
-				case '91':
-				case '92':
-					return 'weatherType_5';
-				case '23': //大雨 特大暴雨 大到暴雨 强阵雨
-				case '54':
-				case '55':
-				case '56':
-				case '68':
-				case '69':
-				case '70':
-				case '93':
+				// case 'yu': //雨
+				// 	return 'weatherType_5';
+				case 'yu': //大雨 特大暴雨 大到暴雨 强阵雨
 					return 'weatherType_6';
-				case '24': //小雪 雨夹雪 中雪 大雪 暴雪
-				case '25':
-				case '49':
-				case '50':
-				case '58':
-				case '59':
-				case '60':
-				case '61':
-				case '62':
-				case '63':
-				case '71':
-				case '72':
-				case '73':
-				case '74':
-				case '75':
-				case '76':
-				case '77':
-				case '94':
+				case 'xue': //小雪 雨夹雪 中雪 大雪 暴雪
 					return 'weatherType_7';
-				case '29': //强沙尘暴 浮沉 尘卷风 扬沙
-				case '30':
-				case '31':
-				case '32':
-				case '33':
+				case 'shachen': //强沙尘暴 浮沉 尘卷风 扬沙
 					return 'weatherType_8';
-				case '28': //冻雾
-					return 'weatherType_9';
-				case '46': //冰雹 冻雨
-				case '47':
-				case '48':
-				case '64':
-				case '65':
+				// case '28': //冻雾
+				// 	return 'weatherType_9';
+				case 'bingbao': //冰雹 冻雨
 					return 'weatherType_10';
 				default:
 					return {
@@ -218,79 +141,66 @@ export default {
 			}
 		},
 		// 设置空气质量状态
-		setQualityType(value) {
-			value = Number(value);
-			var valueType = {};
-			if (0 <= value && value <= 50) {
-				valueType = {
-					class: 'qualityType_0',
-					name: '优'
-				};
-			} else if (51 <= value && value <= 100) {
-				valueType = {
-					class: 'qualityType_1',
-					name: '良'
-				};
-			} else if (101 <= value && value <= 150) {
-				valueType = {
-					class: 'qualityType_2',
-					name: '轻度污染'
-				};
-			} else if (151 <= value && value <= 200) {
-				valueType = {
-					class: 'qualityType_3',
-					name: '中度污染'
-				};
-			} else if (201 <= value && value <= 300) {
-				valueType = {
-					class: 'qualityType_4',
-					name: '重度污染'
-				};
-			} else if (301 <= value && value <= 500) {
-				valueType = {
-					class: 'qualityType_5',
-					name: '严重污染'
-				};
-			} else if (501 <= value && value <= 100000) {
-				valueType = {
-					class: 'qualityType_6',
-					name: '爆表'
-				};
-			} else {
-				valueType = {
-					class: 'qualityType_7',
-					name: '其他'
-				};
-			}
-			valueType.number = value;
-			return valueType;
-		},
-		// 设置温度状态
-		setDegreeType(value) {
-			switch (value) {
-				case '道路冰雪':
-				case '持续低温':
-				case '雷雨大风':
-				case '暴雪':
-				case '台风':
-				case '冰雹':
-				case '霜冻':
-				case '降温':
-				case '大风':
-				case '寒潮':
-				case '雷电':
-				case '暴雨':
-				case '大雾':
-					return {
-						class: 'degreeType_1',
-						name: value
-					};
+		setQualityType(aqi) {
+			let airClass = null;
+			switch (aqi.air_level) {
+				case '优': 
+					airClass = 'qualityType_0';
+					break;
+				case '良': 
+					airClass = 'qualityType_1';
+					break;
+				case '轻度污染':
+					airClass = 'qualityType_2';
+					break;
+				case '中度污染':
+					airClass = 'qualityType_3';
+					break;
+				case '重度污染':
+					airClass = 'qualityType_4';
+					break;
+				case '严重污染':
+					airClass = 'qualityType_5';
+					break;
 				default:
 					return {
-						class: 'degreeType_0',
-						name: value
+						class: 'weatherType_0'
 					};
+			};
+			return {
+				number:aqi.air,
+				class:airClass,
+				name:aqi.air_level,
 			}
+		},
+		// 设置天气预警
+		setAlarmType(alarm){
+			let alarmValue = {};
+			if(alarm.alarm_level){
+				let alarmClass = null;
+				switch(alarm.alarm_level){
+					case '红色':
+						alarmClass = 'alarmType_1';
+						break;
+					case '橙色':
+						alarmClass = 'alarmType_2';
+						break;
+					case '黄色':
+						alarmClass = 'alarmType_3';
+						break;
+					case '蓝色':
+						alarmClass = 'alarmType_4';
+						break;
+					default:
+						alarmClass = 'alarmType_4';
+				};
+				alarmValue = {
+					type:alarm.alarm_type,
+					class:alarmClass,
+					name:alarm.alarm_type + alarm.alarm_level + '预警',
+				}
+			};
+			return alarmValue;
 		}
 	}
 };
@@ -402,14 +312,18 @@ export default {
 #C_Weather .quality .qualityType_7 {
 	background: rgba(44, 31, 59, 1);
 }
-#C_Weather .quality . {
-	background: rgba(44, 31, 59, 1);
+
+#C_Weather .quality .alarmType_1 {
+	background: #d32e25;
 }
-#C_Weather .quality .degreeType_0 {
+#C_Weather .quality .alarmType_2 {
 	background: rgba(255, 119, 25, 1);
 }
-#C_Weather .quality .degreeType_1 {
-	background: rgba(50, 94, 255, 1);
+#C_Weather .quality .alarmType_3 {
+	background: #ecea2d;
+}
+#C_Weather .quality .alarmType_4 {
+	background: #3965ef;
 }
 
 #C_Weather .parameters{
