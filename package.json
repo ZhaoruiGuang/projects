@@ -1,6 +1,6 @@
 {
   "name": "vue2-drag-code",
-  "version": "1.0.7",
+  "version": "1.0.8",
   "private": false,
   "main": "index.js",
   "description": "this is a drag verificate code component",

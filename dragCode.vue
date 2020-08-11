@@ -1,8 +1,8 @@
 <template>
     <div id="drag_verificate_code_content">
-        <p class="checkTip">向右拖动滑块完成验证</p>
+        <p class="checkTip dragTip">向右拖动滑块完成验证</p>
         <div class="drag_active_content" v-bind:style="{'width': dragActiveContentWidth,'background-color':dragActiveContentBgc}">
-            <p class="checkTip checkSuccessTip" v-if="showCheckSuccess">验证通过</p>
+            <p class="checkTip checkSuccessTip" v-if="showCheckSuccess" v-bind:style="{'margin-left': - (62 + Math.ceil(dragPointSize / 2)) + 'px'}">验证通过</p>
             <span class="point drag_point" v-if="showDragPoint" v-on:mousedown="dragPointDown($event)" v-bind:class="dragPointActive ? 'drag_point_active':'' "></span>
             <span class="point refresh_point" v-if="showRefreshPoint" v-on:click="refrePointClick"></span>
         </div>
@@ -29,14 +29,25 @@
 
                 dragActiveContentWidth:'auto',      // 滑道宽度
                 dragActiveContentBgc:'#D0E9FC',     // 滑道背景色
+				
+				dragPointSize:0,		// 滑块大小
             }
         },
         mounted(){
             this.$nextTick(()=>{
                 let boxWidth = document.getElementById('drag_verificate_code_content').offsetWidth;
-                this.maxMove = boxWidth - 40;
-                this.minMove = boxWidth - 80;
+                let boxHeight = document.getElementById('drag_verificate_code_content').offsetHeight - 2;
+                this.maxMove = boxWidth - boxHeight;
+                this.minMove = boxWidth - boxHeight * 2;
+				this.dragPointSize = boxHeight;
                 let _this = this;
+				
+				document.getElementsByClassName('dragTip')[0].style.marginLeft = - (62 - Math.ceil(boxHeight / 2)) + 'px';
+				
+				let dragContentStyle = document.getElementsByClassName('drag_active_content')[0].style;
+				let dragPointStyle = document.getElementsByClassName('drag_point')[0].style;
+				dragContentStyle.height = dragContentStyle.width = dragPointStyle.height = dragPointStyle.width = boxHeight + 'px';
+				
 
                 document.onmousemove = function(e){
                     if(_this.isClick){
@@ -51,14 +62,14 @@
                         if(Math.abs(_this.gapY) > 60){
                             _this.isClick = false;
                         };
-                        _this.dragActiveContentWidth = _this.gapX + 40 + 'px';
+                        _this.dragActiveContentWidth = _this.gapX + _this.dragPointSize + 'px';
                         _this.dragActiveContentBgc = '#D0E9FC';
                     }
                 };
                 document.onmouseup = function(e){
                     _this.isClick = false;
                      if(Math.abs(_this.gapX) < _this.minMove){
-                        _this.dragActiveContentWidth = '40px';
+                        _this.dragActiveContentWidth = _this.dragPointSize + 'px';
                         _this.dragActiveContentBgc = '#D0E9FC';
                         if(_this.dragPointActive && _this.gapX > 0){
                             _this.$emit('dragCallBack','fail');
@@ -88,7 +99,7 @@
             refrePointClick(){
                 this.showRefreshPoint = false;
                 this.showDragPoint = true;
-                this.dragActiveContentWidth = '40px';
+                this.dragActiveContentWidth = this.dragPointSize + 'px';
                 this.dragActiveContentBgc = '#D0E9FC';
                 this.gapX = 0;
                 this.gapY = 0;
@@ -112,18 +123,20 @@
         background-color: #f7f9fa;
         position: relative;
         z-index: 5;
+		overflow: hidden;
     }
     .checkTip{
-        display: block;
-        width: 100%;
-        font-size: 14px;
+        display: inline-block;
+        width: 124px;
+        font-size: 12px;
         line-height: 16px;
         text-align: center;
         position: absolute;
         z-index: 5;
         top:50%;
-        left: 0;
-        margin-top:-8px;
+        left: 50%;
+		margin-top: -8px;
+		margin-left: -62px;
         -moz-user-select: none; 
         -webkit-user-select: none; 
         -ms-user-select: none;   
@@ -131,14 +144,10 @@
         user-select: none;
     }
     .checkSuccessTip{
-        width: 40%;
-        left: 30%;
         color:#0fb194;
     }
     .drag_active_content{
         display: inline-block;
-        min-width: 40px;
-        min-height: 30px;
         height: 100%;
         position: absolute;
         z-index: 6;
@@ -177,6 +186,7 @@
     .refresh_point{
         background-color: #56CEB9;
         background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABEAAAAMAQMAAAC+68T8AAAABlBMVEUAAAD///+l2Z/dAAAAAXRSTlMAQObYZgAAADJJREFUCNdjYGBmYGBgb2Bg4AdieQaGBDsGhg81DAw/fjAw1H5gYLB/ABQ+AJFmZ2AAAMoHCTS20uGgAAAAAElFTkSuQmCC");
+		cursor: pointer;
     }
     .refresh_point:hover{
         background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAUBAMAAAB/pwA+AAAAKlBMVEUAAAD3+PXy8/Du7+z09fLq6+nU1dLm5uTi4+DY2dbp6efk5eLS09DHx8Wf7SgdAAAAAXRSTlMAQObYZgAAAHdJREFUCNdjAAIuRaEFDGDAJAgECgzGDAwcgpoMDIcFJwgyMDQKgKRYJIFMQYgyQUEGFgEI86IgA6MCmGUIFA1MgDKFGRQZ4EAQGxOhwB2kDQKEYYYxMAnArWB0QFjMAHMOozSQYBdUY2BIEixAcjoYsCoKBQApAHufC2Vgk8jaAAAAAElFTkSuQmCC");
