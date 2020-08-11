@@ -170,6 +170,7 @@
         -moz-transition: background-color .2s linear;
         background-repeat: no-repeat;
         background-position: center;
+		background-size: 50%;
     }
     .drag_point{
         background-color: #fff;
