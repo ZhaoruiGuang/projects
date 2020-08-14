@@ -1,6 +1,6 @@
 {
   "name": "vue-weather",
-  "version": "2.0.2",
+  "version": "2.0.3",
   "private": false,
   "main": "index.js",
   "description": "This is a weather module written in Vue",
@@ -14,5 +14,8 @@
   "license": "ISC",
   "devDependencies": {
     "vue-jsonp": "^0.1.8"
+  },
+  "dependencies": {
+	"vue-jsonp": "^0.1.8"
   }
 }
