@@ -3,10 +3,11 @@
 		<template v-if="!noData">
 			<div class="city">
 				{{ weatherData.city }}
-				<img class="localIcon" v-if="mode != 'tag' " src="./images/moji_located.png" alt="" />
+				<img class="localIcon" v-if="mode != 'tag' " src="https://www.aireadall.com/vue-weather/moji_located.png" alt="" />
 			</div>
 			<div class="temperature">{{ weatherData.temperature }}<template v-if="mode == 'tag'">°C</template> </div>
 			<div class="quality">
+				<span class="week" v-if="weatherData.week">{{ weatherData.week }}</span>
 				<span :class="weatherData.qualityStatus.class">{{ weatherData.qualityStatus.number }}&nbsp;{{ weatherData.qualityStatus.name }}</span>
 				<span :class="weatherData.alarmStatus.class" v-if="weatherData.alarmStatus.type">{{ weatherData.alarmStatus.name }}</span>
 			</div>
@@ -30,6 +31,7 @@
 </template>
 
 <script>
+import Vue from 'vue';
 import VueJsonp from 'vue-jsonp';
 Vue.use(VueJsonp);
 
@@ -48,7 +50,7 @@ export default {
 		return {
 			weatherData: {
 				weatherName: '',
-				weatherType: 'weatherType_0', // 天气状态（设置不同大背景图）
+				weatherType: '', // 天气状态（设置不同大背景图）
 
 				city: '正在定位', 		// 位置
 				temperature: '--', 		// 温度
@@ -64,7 +66,8 @@ export default {
 				},
 				windDir: '', 			// 风向
 				windLevel: '', 			// 风级别
-				humidity: ''		 	// 湿度
+				humidity: '',		 	// 湿度
+				week: ''
 			},
 			loading: true,
 			noData: false
@@ -79,23 +82,34 @@ export default {
 				callbackQuery: 'callback',
 				callbackName: 'weather_cb'
 			};
-			// https://www.tianqiapi.com/index/doc?version=v61  天气 api 文档
-			this.$jsonp('https://yiketianqi.com/api?version=v61&appid=93861958&appsecret=5z9XA6lO', params, 3000)
+			// https://www.tianqiapi.com/index/doc?version=day  天气 api 文档
+			let account = {}
+			// 注册了两个账号，随机用一个，这样每天总次数可以多一些；使用者也可以换成自己的哦
+			if (Math.random() > 0.5) {
+				account.appid = '93861958'
+				account.appsecret = '5z9XA6lO'
+			} else {
+				account.appid = '47885128'
+				account.appsecret = 'V670xrgY'
+			};
+			
+			this.$jsonp(`https://v0.yiketianqi.com/free/day?appid=${account.appid}&appsecret=${account.appsecret}&vue=1`, params, 3000)
 				.then(res => {
-					console.log(res)
+					// console.log(res)
 					this.loading = false;
 					if (res&&res.cityid) {
-						const { aqi, city,tem, wea,wea_img,win,win_speed,humidity,alarm } = res;
+						let { air, city, tem, wea, wea_img, win, win_speed, humidity, alarm, week } = res;
 						Object.assign(this.weatherData, {
-							weatherType: this.setWeatherType(wea_img),
 							city: city,
 							temperature: tem,
 							weatherName: wea,
+							weatherType: this.setWeatherType(wea_img),
 							alarmStatus: this.setAlarmType(alarm),	// 预警
-							qualityStatus: this.setQualityType(aqi),
+							qualityStatus: this.setQualityType(air),
 							windDir: win,
 							windLevel: win_speed,
-							humidity: humidity
+							humidity: humidity,
+							week: week,
 						});
 						this.noData = false;
 						this.$emit('weatherSuccess');
@@ -135,16 +149,53 @@ export default {
 				case 'bingbao': //冰雹 冻雨
 					return 'weatherType_10';
 				default:
-					return {
-						class: 'weatherType_0'
-					};
+					return 'weatherType_0'
 			}
 		},
+		// 根据空气质量指数，获取质量描述
+		getAirDesc(air) {
+			let qualityArr = [
+				{
+					range: [0, 50],
+					desc: '优'
+				},
+				{
+					range: [51, 100],
+					desc: '良'
+				},
+				{
+					range: [101, 150],
+					desc: '轻度污染'
+				},
+				{
+					range: [151, 200],
+					desc: '中度污染'
+				},
+				{
+					range: [201, 300],
+					desc: '重度污染'
+				},
+				{
+					range: [301, 9999],
+					desc: '严重污染'
+				},
+			]
+			let airName = null
+			for(let i=0;i<qualityArr.length;i++) {
+				let range = qualityArr[i].range
+				if (air >= range[0] && air <= range[1]) {
+					airName = qualityArr[i].desc
+					break
+				}
+			}
+			return airName
+		},
 		// 设置空气质量状态
-		setQualityType(aqi) {
+		setQualityType(air=0) {
 			let airClass = null;
-			switch (aqi.air_level) {
-				case '优': 
+			let airName = this.getAirDesc(Number(air))
+			switch (airName) {
+				case '优':  
 					airClass = 'qualityType_0';
 					break;
 				case '良': 
@@ -163,18 +214,20 @@ export default {
 					airClass = 'qualityType_5';
 					break;
 				default:
-					return {
-						class: 'weatherType_0'
-					};
+					airClass = 'qualityType_0';
+					break
 			};
 			return {
-				number:aqi.air,
-				class:airClass,
-				name:aqi.air_level,
+				number: air,
+				class: airClass,
+				name: airName,
 			}
 		},
 		// 设置天气预警
 		setAlarmType(alarm){
+			if (!alarm) {
+				return {}
+			}
 			let alarmValue = {};
 			if(alarm.alarm_level){
 				let alarmClass = null;
@@ -206,7 +259,7 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 #C_Weather {
 	width: 260px;
 	height: 230px;
@@ -223,34 +276,34 @@ export default {
 }
 #C_Weather.weatherType_0,
 #C_Weather.weatherType_1 {
-	background-image: url(images/cloudless.png);
+	background-image: url('https://www.aireadall.com/vue-weather/cloudless.png');
 }
 #C_Weather.weatherType_2 {
-	background-image: url(images/cloudy.png);
+	background-image: url('https://www.aireadall.com/vue-weather/cloudy.png');
 }
 #C_Weather.weatherType_3 {
-	background-image: url(images/thunder.png);
+	background-image: url('https://www.aireadall.com/vue-weather/thunder.png');
 }
 #C_Weather.weatherType_4 {
-	background-image: url(images/fog.png);
+	background-image: url('https://www.aireadall.com/vue-weather/fog.png');
 }
 #C_Weather.weatherType_5 {
-	background-image: url(images/rain.png);
+	background-image: url('https://www.aireadall.com/vue-weather/rain.png');
 }
 #C_Weather.weatherType_6 {
-	background-image: url(images/heavyrain.png);
+	background-image: url('https://www.aireadall.com/vue-weather/heavyrain.png');
 }
 #C_Weather.weatherType_7 {
-	background-image: url(images/snow.png);
+	background-image: url('https://www.aireadall.com/vue-weather/snow.png');
 }
 #C_Weather.weatherType_8 {
-	background-image: url(images/storm.png);
+	background-image: url('https://www.aireadall.com/vue-weather/storm.png');
 }
 #C_Weather.weatherType_9 {
-	background-image: url(images/frost.png);
+	background-image: url('https://www.aireadall.com/vue-weather/frost.png');
 }
 #C_Weather.weatherType_10 {
-	background-image: url(images/hail.png);
+	background-image: url('https://www.aireadall.com/vue-weather/hail.png');
 }
 #C_Weather.C_Weather_noBg{
 	background-image: none;
@@ -289,6 +342,9 @@ export default {
 	padding: 0 4px;
 	border-radius: 2px;
 	box-shadow: 0px 1px 6px 0px rgba(0, 0, 0, 0.3);
+}
+#C_Weather .quality .week {
+	box-shadow: none;
 }
 #C_Weather .quality .qualityType_0,
 #C_Weather .quality .qualityType_1 {
@@ -342,7 +398,7 @@ export default {
 	height: 16px;
 	float: left;
 	margin-right: 2px;
-	background-image: url(images/ic_10.png);
+	background-image: url('https://www.aireadall.com/vue-weather/ic_10.png');
 	background-size: 16px auto;
 }
 #C_Weather .parameters .weatherType_0::before,
