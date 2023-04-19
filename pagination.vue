@@ -104,7 +104,6 @@
 			    if (this.currentPage === currentPage || currentPage < 1 || currentPage > this.totalPage) {
 			        return;
 			    };
-			    this.currentPage = currentPage;
 				this.$emit('switchPage',currentPage);
 				this.$nextTick(()=>{
 					this.setItemStyle();
@@ -137,6 +136,7 @@
 		margin-right:5px;
 		cursor: pointer;
 		float: left;
+		user-select: none;
 	}
 	#pagination .bothEnds{
 		width:38px;

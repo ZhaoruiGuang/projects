@@ -1,6 +1,6 @@
 {
   "name": "vue-pagination-s",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "private": false,
   "main": "index.js",
   "description": "a simple pagination of vue",
